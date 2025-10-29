@@ -1,4 +1,3 @@
-
 import './style.css'
 
 const sentences = [
@@ -70,32 +69,24 @@ const buttonContainer = document.getElementById('button-container')
 
 // Function to create and append an image element
 const createImage = (src) => {
-  // Create wrapper div
   const wrapperEl = document.createElement('div')
   wrapperEl.classList.add('image-wrapper')
 
-  // Create image element
   const imageEl = document.createElement('img')
   imageEl.src = src
   imageEl.alt = "Random image"
 
-  // Create overlay div
   const overlayEl = document.createElement('div')
   overlayEl.classList.add('overlay')
 
-  // When overlay is clicked, reveal image
   overlayEl.addEventListener('click', () => {
     overlayEl.classList.add('hidden')
   })
 
-  // Append image and overlay to wrapper
   wrapperEl.appendChild(imageEl)
   wrapperEl.appendChild(overlayEl)
-
-  // Add wrapper to container
   containerEl.appendChild(wrapperEl)
 }
-
 
 // Function to create and append a text paragraph
 const createText = (text) => {
@@ -104,36 +95,50 @@ const createText = (text) => {
   containerEl.appendChild(textEl)
 }
 
-const init = () => {
-  // Fetch images from the API
-  fetch('https://image-feed-api.vercel.app/api/images?page=1')
-    .then(resp => resp.json())
-    .then(json => {
-      const images = json.data
+// **Fetch all 20 pages in parallel**
+const fetchAllImages = () => {
+  const totalPages = 20
+  const pagePromises = []
 
-      // Pick one random sentence object from the sentences array
-      const randomSentence = sentences[Math.floor(Math.random() * sentences.length)]
+  for (let page = 1; page <= totalPages; page++) {
+    pagePromises.push(
+      fetch(`https://image-feed-api.vercel.app/api/images?page=${page}`)
+        .then(resp => resp.json())
+        .then(json => json.data)
+        .catch(err => {
+          console.error(`Failed to fetch page ${page}`, err)
+          return []
+        })
+    )
+  }
 
-      // Shuffle images and select 3 unique ones
-      const shuffledImages = images.sort(() => 0.5 - Math.random())
-      const selectedImages = shuffledImages.slice(0, 3)
-
-      // Display the sentence and images in order
-      createText(randomSentence.first)
-      createImage(selectedImages[0].image_url)
-
-      createText(randomSentence.second)
-      createImage(selectedImages[1].image_url)
-
-      createText(randomSentence.third)
-      createImage(selectedImages[2].image_url)
-
-      createText(randomSentence.fourth)
-    })
+  return Promise.all(pagePromises).then(results => results.flat())
 }
 
+// Updated init function without async/await
+const init = () => {
+  fetchAllImages().then(images => {
+    const randomSentence = sentences[Math.floor(Math.random() * sentences.length)]
+    const shuffledImages = images.sort(() => 0.5 - Math.random())
+    const selectedImages = shuffledImages.slice(0, 3)
+
+    createText(randomSentence.first)
+    createImage(selectedImages[0].image_url)
+
+    createText(randomSentence.second)
+    createImage(selectedImages[1].image_url)
+
+    createText(randomSentence.third)
+    createImage(selectedImages[2].image_url)
+
+    createText(randomSentence.fourth)
+  })
+}
+
+// Start the app initially
 init()
 
+// Button to generate a new fortune
 const buttonEl = document.createElement('button')
 buttonEl.innerText = "Generate New Fortune"
 buttonEl.onclick = () => {
