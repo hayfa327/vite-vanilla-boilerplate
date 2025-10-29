@@ -66,14 +66,36 @@ const sentences = [
 
 
 const containerEl = document.getElementById('app')
+const buttonContainer = document.getElementById('button-container')
 
 // Function to create and append an image element
 const createImage = (src) => {
+  // Create wrapper div
+  const wrapperEl = document.createElement('div')
+  wrapperEl.classList.add('image-wrapper')
+
+  // Create image element
   const imageEl = document.createElement('img')
   imageEl.src = src
   imageEl.alt = "Random image"
-  containerEl.appendChild(imageEl)
+
+  // Create overlay div
+  const overlayEl = document.createElement('div')
+  overlayEl.classList.add('overlay')
+
+  // When overlay is clicked, reveal image
+  overlayEl.addEventListener('click', () => {
+    overlayEl.classList.add('hidden')
+  })
+
+  // Append image and overlay to wrapper
+  wrapperEl.appendChild(imageEl)
+  wrapperEl.appendChild(overlayEl)
+
+  // Add wrapper to container
+  containerEl.appendChild(wrapperEl)
 }
+
 
 // Function to create and append a text paragraph
 const createText = (text) => {
@@ -111,3 +133,11 @@ const init = () => {
 }
 
 init()
+
+const buttonEl = document.createElement('button')
+buttonEl.innerText = "Generate New Fortune"
+buttonEl.onclick = () => {
+  containerEl.innerHTML = ""
+  init()
+}
+buttonContainer.appendChild(buttonEl)
