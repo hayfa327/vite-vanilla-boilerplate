@@ -1,71 +1,113 @@
+
 import './style.css'
 
-const sentences = [{
-    first: 'This is the first sentece',
-    second: ', this is the second.',
-    third: 'This is the third.'
-}, {
-    first: 'This is first ex 2',
-    second: ', this is the second ex 2.',
-    third: 'This is the third ex 2.'
-}, {
-    first: 'This is the first sentece ex3',
-    second: ', this is the second. ex 3',
-    third: 'This is the third ex3.'
-}]
+const sentences = [
+  {
+    first: "Tomorrow you will trip over a ",
+    second: ", which will force you to communicate only through ",
+    third: ", until a wild ",
+    fourth: " restores your dignity."
+  },
+  {
+    first: "Soon you will receive a mysterious ",
+    second: " in the mail that convinces you to start ",
+    third: ", and only the sacred ",
+    fourth: " will reveal your destiny."
+  },
+  {
+    first: "You are destined to be followed by a ",
+    second: " while trying to eat a ",
+    third: ", until the legendary ",
+    fourth: " declares you ruler of Tuesdays."
+  },
+  {
+    first: "A magical ",
+    second: " will challenge you to a duel of ",
+    third: ", but only the arrival of ",
+    fourth: " will prevent total chaos."
+  },
+  {
+    first: "This month, you will adopt a talking ",
+    second: " who demands you learn ",
+    third: ", and together you will summon ",
+    fourth: " to change world history."
+  },
+  {
+    first: "Your future involves a haunted ",
+    second: " that whispers about ",
+    third: ", until a glowing ",
+    fourth: " appears to grant questionable wishes."
+  },
+  {
+    first: "During your next adventure, you will accidentally invent ",
+    second: " while chasing a ",
+    third: ", right before ",
+    fourth: " offers you eternal fame."
+  },
+  {
+    first: "A prophetic ",
+    second: " will appear in your dreams, urging you to sacrifice ",
+    third: ", so that the almighty ",
+    fourth: " can reboot your destiny."
+  },
+  {
+    first: "You will unexpectedly become obsessed with ",
+    second: ", leading you to build a shrine of ",
+    third: ", until the wise ",
+    fourth: " bestows enlightenment."
+  },
+  {
+    first: "The universe has chosen you to battle ",
+    second: " using only ",
+    third: ", and victory will earn you the sacred ",
+    fourth: " of everlasting snacks."
+  }
+];
+
 
 const containerEl = document.getElementById('app')
 
+// Function to create and append an image element
 const createImage = (src) => {
-    const imageEl = document.createElement('img')
-    imageEl.src = src
-    containerEl.appendChild(imageEl)
+  const imageEl = document.createElement('img')
+  imageEl.src = src
+  imageEl.alt = "Random image"
+  containerEl.appendChild(imageEl)
 }
 
-const createText = (whichString) => {
-
-    //Get one random object from sentences array
-    const randomIndex = Math.floor(Math.random() * sentences.length);
-    let currentSentece = sentences[randomIndex]
-
-    //Create HTML p
-    const textEl = document.createElement('p')
-
-    //This decides what string in the object should be used based on the argument when the function is called
-    //Potential bug: the first/second/third sentences are not always from the same object. 
-    let outputString = ''
-    if (whichString === 'first') {
-        outputString = currentSentece.first
-    } else if (whichString === 'second') {
-        outputString = currentSentece.second
-    } else {
-        outputString = currentSentece.third
-    }
-
-    //set p element text to chosen outputstring
-    textEl.innerText = outputString
-
-    containerEl.appendChild(textEl)
+// Function to create and append a text paragraph
+const createText = (text) => {
+  const textEl = document.createElement('p')
+  textEl.innerText = text
+  containerEl.appendChild(textEl)
 }
 
 const init = () => {
-    fetch('https://image-feed-api.vercel.app/api/images?page=1')
-        .then(resp => resp.json())
-        .then(json => {
-            const images = json.data;
-            const randomIndex1 = Math.floor(Math.random() * images.length);
-            const randomIndex2 = Math.floor(Math.random() * images.length);
-            const randomIndex3 = Math.floor(Math.random() * images.length);
-            //this is not fully working (dublettes of the images can appear)
-            //Also does not work if image is not at the start or the end of a sentence
-            createText('first');
-            createImage(images[randomIndex1].image_url);
-            createText('second');
-            createImage(images[randomIndex2].image_url);
-            createText('third');
-            createImage(images[randomIndex3].image_url);
+  // Fetch images from the API
+  fetch('https://image-feed-api.vercel.app/api/images?page=1')
+    .then(resp => resp.json())
+    .then(json => {
+      const images = json.data
 
-        });
+      // Pick one random sentence object from the sentences array
+      const randomSentence = sentences[Math.floor(Math.random() * sentences.length)]
+
+      // Shuffle images and select 3 unique ones
+      const shuffledImages = images.sort(() => 0.5 - Math.random())
+      const selectedImages = shuffledImages.slice(0, 3)
+
+      // Display the sentence and images in order
+      createText(randomSentence.first)
+      createImage(selectedImages[0].image_url)
+
+      createText(randomSentence.second)
+      createImage(selectedImages[1].image_url)
+
+      createText(randomSentence.third)
+      createImage(selectedImages[2].image_url)
+
+      createText(randomSentence.fourth)
+    })
 }
 
 init()
