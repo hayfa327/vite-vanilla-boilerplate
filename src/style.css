@@ -101,6 +101,7 @@ img {
   border-radius: 8px;
   width: 100px;
   height: auto;
+ border-radius: 50%;
 }
 p {
   display:inline-flex;
@@ -114,4 +115,53 @@ p {
 }
 footer{
   padding-top: 2rem;
+}
+
+
+
+
+
+
+
+
+.image-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 200px;        /* Adjust size as needed */
+  height: 200px;       /* Or remove to let the image size itself */
+  overflow: hidden;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 50%;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+
+  /* Spooky spiderweb overlay */
+  background-color: rgba(0, 0, 0, 0.7); /* semi-transparent dark base */
+  background-image: url('https://www.collette.co.nz/images/609151/spiderweb.jpg');
+  background-size: cover;      /* cover entire image */
+  background-repeat: no-repeat;
+  background-position: center;
+
+  opacity: 1;                  /* fully visible overlay */
+  transition: opacity 0.5s ease;
+  cursor: pointer;
+  z-index: 2;                  /* on top of image */
+}
+
+.overlay.hidden {
+  opacity: 0;
+  pointer-events: none;        /* allow clicks to hit the image after revealing */
 }
