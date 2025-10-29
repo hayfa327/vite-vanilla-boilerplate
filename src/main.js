@@ -146,3 +146,46 @@ buttonEl.onclick = () => {
   init()
 }
 buttonContainer.appendChild(buttonEl)
+
+
+
+
+import './landing.css';
+
+let appTitle = document.getElementById('app-title');
+
+// Create modal overlay
+const overlay = document.createElement('div');
+overlay.className = 'modal-overlay';
+
+const box = document.createElement('div');
+box.className = 'modal-box';
+box.innerHTML = `
+  <h2>⚠️ Proceed with Caution</h2>
+  <p>This experience contains flashing lights, eerie sounds, and possibly a few heart-stopping moments 🎃</p>
+  <p>If you have a heart condition or dislike sudden spooky surprises, we recommend viewing with caution... or maybe not at all 👀</p>
+  <div style="margin:10px 0px; display:flex; align-items:center; justify-content:end; gap:0.5rem;">
+    <label>Your Name: </label> 
+    <input type="text" id="usero" placeholder="Mystery Guest">
+    <button id="exitModal">Consent</button>
+  </div>
+`;
+overlay.appendChild(box);
+document.body.appendChild(overlay);
+
+// Show modal with fade-in effect
+requestAnimationFrame(() => overlay.classList.add('show'));
+
+// Handle close + welcome text
+const closeModal = () => {
+  const usernameInput = document.getElementById('usero');
+  const userNameValue = usernameInput.value.trim() || "User";
+
+  overlay.classList.remove('show');
+  setTimeout(() => overlay.remove(), 400);
+
+  appTitle.innerHTML = `Future Predictions for ${userNameValue}`;
+};
+
+// Attach listener
+document.getElementById('exitModal').addEventListener('click', closeModal);
