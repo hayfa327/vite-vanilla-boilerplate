@@ -1,31 +1,32 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Griffy", system-ui;
+  font-weight: 300;
+  font-style: normal;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url('https://cdn.suwalls.com/wallpapers/holidays/halloween-pattern-on-black-49233-3840x2160.jpg') 
+  ;
+  background-size: cover;
 }
 
 
 body {
   margin: 0;
+  padding: 0;
   min-width: 300px;
   height: 100vh;
   text-align: center;
   color: white;
-  background: 
-    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url('https://cdn.suwalls.com/wallpapers/holidays/halloween-pattern-on-black-49233-3840x2160.jpg') 
-    no-repeat center center/cover;
+  
 }
 
 
-#app {
-  max-width: 60%;
-  margin: 25px auto;
-  padding: 2rem;
-}
 
 
 button {
+  margin-bottom: 20px;
   border-radius: 8px;
   border: 1px solid orangered;
   padding: 0.6em 1.2em;
@@ -41,24 +42,35 @@ button {
 
 
 img {
-  width: 100px;
+  width: 30px;
   height: auto;
  border-radius: 50%;
 }
 p {
   display:inline-flex;
-  font-size: large;
-  padding: 2rem;
+  margin: 0;
+  font-size: 55px;
+  padding: 1rem 1.5rem;
+   position: relative;
+  top: -38px;
+  line-height: 95px;
 }
 
 #app {
+  max-width: 90%;
+  margin: 20px auto;
+  margin-bottom: 40px;
+  padding: 4rem 2rem 2rem 2rem;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(234, 44, 44, 0.5);
+  box-shadow: 0 4px 10px rgba(234, 44, 44, 1);
 
   background: rgba(255, 255, 255, 0.1);   /* translucent background */
   backdrop-filter: blur(10px);            /* blur effect */
   -webkit-backdrop-filter: blur(10px);    /* Safari support */
   border: 1px solid rgba(137, 50, 0, 0.888); /* subtle border */}
+
+
+
 footer{
   padding-top: 2rem;
 }
@@ -69,12 +81,11 @@ footer{
 
 
 
-
 .image-wrapper {
   position: relative;
   display: inline-block;
-  width: 200px;        /* Adjust size as needed */
-  height: 200px;       /* Or remove to let the image size itself */
+  width: 100px;        /* Adjust size as needed */
+  height: 100px;       /* Or remove to let the image size itself */
   overflow: hidden;
 }
 
@@ -114,12 +125,8 @@ footer{
 
 
 
-
-
-
-
-
-
-.app-title{
-  padding: 10px 0;
+#app-title{
+  color: rgb(242, 59, 4);
+  font-size: 52px;
+  margin: 0;
 }
