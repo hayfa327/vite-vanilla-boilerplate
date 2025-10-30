@@ -162,12 +162,12 @@ const box = document.createElement('div');
 box.className = 'modal-box';
 box.innerHTML = `
   <h2>⚠️ Proceed with Caution</h2>
-  <p>This experience contains flashing lights, eerie sounds, and possibly a few heart-stopping moments 🎃</p>
-  <p>If you have a heart condition or dislike sudden spooky surprises, we recommend viewing with caution... or maybe not at all 👀</p>
-  <div style="margin:10px 0px; display:flex; align-items:center; justify-content:end; gap:0.5rem;">
+  <p class = 'normaltext'>This experience contains flashing lights, eerie sounds, and possibly a few heart-stopping moments 🎃</p>
+  <p class = 'normaltext'>If you have a heart condition or dislike sudden spooky surprises, we recommend viewing with caution... or maybe not at all 👀</p>
+  <div style="margin:10px 0px; display:flex; align-items:center; justify-content:end; gap:0.2rem;">
     <label>Your Name: </label> 
     <input type="text" id="usero" placeholder="Mystery Guest">
-    <button id="exitModal">Consent</button>
+    <button id="exitModal" style = 'margin:0;' >Consent</button>
   </div>
 `;
 overlay.appendChild(box);
@@ -184,7 +184,7 @@ const closeModal = () => {
   overlay.classList.remove('show');
   setTimeout(() => overlay.remove(), 400);
 
-  appTitle.innerHTML = `Future Predictions for ${userNameValue}`;
+  appTitle.innerHTML = `🎃 Future Predictions for ${userNameValue} 🎃`;
 };
 
 // Attach listener

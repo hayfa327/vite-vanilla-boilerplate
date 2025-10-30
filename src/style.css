@@ -62,7 +62,7 @@ p {
   margin-bottom: 40px;
   padding: 4rem 2rem 2rem 2rem;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(234, 44, 44, 1);
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
 
   background: rgba(255, 255, 255, 0.1);   /* translucent background */
   backdrop-filter: blur(10px);            /* blur effect */
@@ -129,4 +129,9 @@ footer{
   color: rgb(242, 59, 4);
   font-size: 52px;
   margin: 0;
+}
+
+.normaltext {
+  font-family: 'Courier New', Courier, monospace;
+  opacity: 0.7;
 }
