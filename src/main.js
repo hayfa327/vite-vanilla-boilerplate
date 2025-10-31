@@ -1,4 +1,3 @@
-
 import './style.css'
 
 const sentences = [
@@ -66,13 +65,27 @@ const sentences = [
 
 
 const containerEl = document.getElementById('app')
+const buttonContainer = document.getElementById('button-container')
 
 // Function to create and append an image element
 const createImage = (src) => {
+  const wrapperEl = document.createElement('div')
+  wrapperEl.classList.add('image-wrapper')
+
   const imageEl = document.createElement('img')
   imageEl.src = src
   imageEl.alt = "Random image"
-  containerEl.appendChild(imageEl)
+
+  const overlayEl = document.createElement('div')
+  overlayEl.classList.add('overlay')
+
+  overlayEl.addEventListener('click', () => {
+    overlayEl.classList.add('hidden')
+  })
+
+  wrapperEl.appendChild(imageEl)
+  wrapperEl.appendChild(overlayEl)
+  containerEl.appendChild(wrapperEl)
 }
 
 // Function to create and append a text paragraph
@@ -82,35 +95,95 @@ const createText = (text) => {
   containerEl.appendChild(textEl)
 }
 
-const init = () => {
-  // Fetch images from the API
-  fetch('https://image-feed-api.vercel.app/api/images?page=1')
-    .then(resp => resp.json())
-    .then(json => {
-      const images = json.data
+// **Fetch all 20 pages in parallel**
+const fetchAllImages = () => {
+  const totalPages = 20
+  const pagePromises = []
 
-      // Pick one random sentence object from the sentences array
-      const randomSentence = sentences[Math.floor(Math.random() * sentences.length)]
+  for (let page = 1; page <= totalPages; page++) {
+    pagePromises.push(
+      fetch(`https://image-feed-api.vercel.app/api/images?page=${page}`)
+        .then(resp => resp.json())
+        .then(json => json.data)
+        .catch(err => {
+          console.error(`Failed to fetch page ${page}`, err)
+          return []
+        })
+    )
+  }
 
-      // Shuffle images and select 3 unique ones
-      const shuffledImages = images.sort(() => 0.5 - Math.random())
-      const selectedImages = shuffledImages.slice(0, 3)
-
-      // Display the sentence and images in order
-      createText(randomSentence.first)
-      createImage(selectedImages[0].image_url)
-
-      createText(randomSentence.second)
-      createImage(selectedImages[1].image_url)
-
-      createText(randomSentence.third)
-      createImage(selectedImages[2].image_url)
-
-      createText(randomSentence.fourth)
-    })
+  return Promise.all(pagePromises).then(results => results.flat())
 }
 
+// Updated init function without async/await
+const init = () => {
+  fetchAllImages().then(images => {
+    const randomSentence = sentences[Math.floor(Math.random() * sentences.length)]
+    const shuffledImages = images.sort(() => 0.5 - Math.random())
+    const selectedImages = shuffledImages.slice(0, 3)
+
+    createText(randomSentence.first)
+    createImage(selectedImages[0].image_url)
+
+    createText(randomSentence.second)
+    createImage(selectedImages[1].image_url)
+
+    createText(randomSentence.third)
+    createImage(selectedImages[2].image_url)
+
+    createText(randomSentence.fourth)
+  })
+}
+
+// Start the app initially
 init()
+
+// Button to generate a new fortune
+const buttonEl = document.createElement('button')
+buttonEl.innerText = "Generate New Fortune"
+buttonEl.onclick = () => {
+  containerEl.innerHTML = ""
+  init()
+}
+buttonContainer.appendChild(buttonEl)
+
+let appTitle = document.getElementById('app-title');
+
+// Create modal overlay
+const overlay = document.createElement('div');
+overlay.className = 'modal-overlay';
+
+const box = document.createElement('div');
+box.className = 'modal-box';
+box.innerHTML = `
+  <h2>⚠️ Proceed with Caution</h2>
+  <p class = 'normaltext'>This experience contains flashing lights, eerie sounds, and possibly a few heart-stopping moments 🎃</p>
+  <p class = 'normaltext'>If you have a heart condition or dislike sudden spooky surprises, we recommend viewing with caution... or maybe not at all 👀</p>
+  <div style="margin:10px 0px; display:flex; align-items:center; justify-content:end; gap:0.2rem;">
+    <label>Your Name: </label> 
+    <input type="text" id="usero" placeholder="Mystery Guest">
+    <button id="exitModal" style = 'margin:0;' >Consent</button>
+  </div>
+`;
+overlay.appendChild(box);
+document.body.appendChild(overlay);
+
+// Show modal with fade-in effect
+requestAnimationFrame(() => overlay.classList.add('show'));
+
+// Handle close + welcome text
+const closeModal = () => {
+  const usernameInput = document.getElementById('usero');
+  const userNameValue = usernameInput.value.trim() || "User";
+
+  overlay.classList.remove('show');
+  setTimeout(() => overlay.remove(), 400);
+
+  appTitle.innerHTML = `🎃 Future Predictions for ${userNameValue} 🎃`;
+};
+
+// Attach listener
+document.getElementById('exitModal').addEventListener('click', closeModal);
 
 /* const commentsContainer = document.getElementById('comments');
  
@@ -142,7 +215,7 @@ selectedComments.forEach(c => createComment(c));
 const likesContainer = document.getElementById('likes');
 
 // Array of Halloween emojis
-const halloweenEmojis = ['🎃', '👻', '💀', '😈', '🕸️', '🦇', '🕷️', '⚰️'];
+const halloweenEmojis = ['🎃'];
 
 fetch('https://image-feed-api.vercel.app/api/images?page=1')
   .then(resp => resp.json())
@@ -166,4 +239,3 @@ fetch('https://image-feed-api.vercel.app/api/images?page=1')
     });
   });
 
- 
