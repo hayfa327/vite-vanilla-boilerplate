@@ -1,4 +1,5 @@
 import './style.css'
+import './landing.css'
 
 const sentences = [
   {
@@ -66,6 +67,10 @@ const sentences = [
 
 const containerEl = document.getElementById('app')
 const buttonContainer = document.getElementById('button-container')
+
+// Hide main content initially until modal is closed
+containerEl.style.display = 'none';
+buttonContainer.style.display = 'none';
 
 // Function to create and append an image element
 const createImage = (src) => {
@@ -135,8 +140,8 @@ const init = () => {
   })
 }
 
-// Start the app initially
-init()
+// Don't start the app initially - wait for modal to close
+// init()
 
 // Button to generate a new fortune
 const buttonEl = document.createElement('button')
@@ -180,6 +185,13 @@ const closeModal = () => {
   setTimeout(() => overlay.remove(), 400);
 
   appTitle.innerHTML = `🎃 Future Predictions for ${userNameValue} 🎃`;
+  
+  // Show main content after modal closes
+  containerEl.style.display = 'block';
+  buttonContainer.style.display = 'block';
+  
+  // Start the app after modal closes
+  init();
 };
 
 // Attach listener
