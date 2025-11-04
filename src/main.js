@@ -67,33 +67,20 @@ const sentences = [
 const containerEl = document.getElementById('app')
 const buttonContainer = document.getElementById('button-container')
 
-// Function to create and append an image element
+// Return HTML string for image
 const createImage = (src) => {
-  const wrapperEl = document.createElement('div')
-  wrapperEl.classList.add('image-wrapper')
+  return `
+    <div class="image-wrapper">
+      <img src="${src}" alt="Random image" />
+      <div class="overlay" onclick="this.classList.add('hidden')"></div>
+    </div>
+  `;
+};
 
-  const imageEl = document.createElement('img')
-  imageEl.src = src
-  imageEl.alt = "Random image"
-
-  const overlayEl = document.createElement('div')
-  overlayEl.classList.add('overlay')
-
-  overlayEl.addEventListener('click', () => {
-    overlayEl.classList.add('hidden')
-  })
-
-  wrapperEl.appendChild(imageEl)
-  wrapperEl.appendChild(overlayEl)
-  containerEl.appendChild(wrapperEl)
-}
-
-// Function to create and append a text paragraph
+// Return HTML string for text
 const createText = (text) => {
-  const textEl = document.createElement('p')
-  textEl.innerText = text
-  containerEl.appendChild(textEl)
-}
+  return `<p>${text}</p>`;
+};
 
 // **Fetch all 20 pages in parallel**
 const fetchAllImages = () => {
@@ -115,23 +102,24 @@ const fetchAllImages = () => {
   return Promise.all(pagePromises).then(results => results.flat())
 }
 
-// Updated init function without async/await
+// Updated init function using ${} template literals
 const init = () => {
   fetchAllImages().then(images => {
     const randomSentence = sentences[Math.floor(Math.random() * sentences.length)]
     const shuffledImages = images.sort(() => 0.5 - Math.random())
     const selectedImages = shuffledImages.slice(0, 3)
 
-    createText(randomSentence.first)
-    createImage(selectedImages[0].image_url)
+    const html = `
+      ${createText(randomSentence.first)}
+      ${createImage(selectedImages[0].image_url)}
+      ${createText(randomSentence.second)}
+      ${createImage(selectedImages[1].image_url)}
+      ${createText(randomSentence.third)}
+      ${createImage(selectedImages[2].image_url)}
+      ${createText(randomSentence.fourth)}
+    `
 
-    createText(randomSentence.second)
-    createImage(selectedImages[1].image_url)
-
-    createText(randomSentence.third)
-    createImage(selectedImages[2].image_url)
-
-    createText(randomSentence.fourth)
+    containerEl.innerHTML = html
   })
 }
 
@@ -146,8 +134,6 @@ buttonEl.onclick = () => {
   init()
 }
 buttonContainer.appendChild(buttonEl)
-
-
 
 
 import './landing.css';

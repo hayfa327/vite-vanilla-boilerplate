@@ -19,10 +19,7 @@ body {
   height: 100vh;
   text-align: center;
   color: white;
-  
 }
-
-
 
 
 button {
@@ -40,18 +37,18 @@ button {
   height: 40px;
 }
 
-
 img {
   width: 30px;
   height: auto;
  border-radius: 50%;
 }
+
 p {
   display:inline-flex;
   margin: 0;
   font-size: 55px;
   padding: 1rem 1.5rem;
-   position: relative;
+  position: relative;
   top: -38px;
   line-height: 95px;
 }
@@ -69,17 +66,9 @@ p {
   -webkit-backdrop-filter: blur(10px);    /* Safari support */
   border: 1px solid rgba(137, 50, 0, 0.888); /* subtle border */}
 
-
-
 footer{
-  padding-top: 2rem;
+  padding: 2rem 0;
 }
-
-
-
-
-
-
 
 .image-wrapper {
   position: relative;
@@ -122,8 +111,6 @@ footer{
   opacity: 0;
   pointer-events: none;        /* allow clicks to hit the image after revealing */
 }
-
-
 
 #app-title{
   color: rgb(242, 59, 4);
