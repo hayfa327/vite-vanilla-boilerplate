@@ -1,5 +1,7 @@
 import './style.css'
 import './landing.css'
+import './sound.js'
+import {renderMusicPlayer} from './sound.js';
 
 const sentences = [
   {
@@ -180,6 +182,8 @@ const closeModal = () => {
   
   // Start the app after modal closes
   init();
+  // Icon for music
+  renderMusicPlayer();
 };
 
 // Attach listener
