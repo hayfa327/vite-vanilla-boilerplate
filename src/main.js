@@ -1,4 +1,5 @@
 import './style.css'
+import './landing.css'
 
 const sentences = [
   {
@@ -67,7 +68,11 @@ const sentences = [
 const containerEl = document.getElementById('app')
 const buttonContainer = document.getElementById('button-container')
 
-// Return HTML string for image
+// Hide main content initially until modal is closed
+containerEl.style.display = 'none';
+buttonContainer.style.display = 'none';
+
+// Function to create and append an image element
 const createImage = (src) => {
   return `
     <div class="image-wrapper">
@@ -123,8 +128,8 @@ const init = () => {
   })
 }
 
-// Start the app initially
-init()
+// Don't start the app initially - wait for modal to close
+// init()
 
 // Button to generate a new fortune
 const buttonEl = document.createElement('button')
@@ -134,9 +139,6 @@ buttonEl.onclick = () => {
   init()
 }
 buttonContainer.appendChild(buttonEl)
-
-
-import './landing.css';
 
 let appTitle = document.getElementById('app-title');
 
@@ -171,7 +173,109 @@ const closeModal = () => {
   setTimeout(() => overlay.remove(), 400);
 
   appTitle.innerHTML = `🎃 Future Predictions for ${userNameValue} 🎃`;
+  
+  // Show main content after modal closes
+  containerEl.style.display = 'block';
+  buttonContainer.style.display = 'block';
+  
+  // Start the app after modal closes
+  init();
 };
 
 // Attach listener
 document.getElementById('exitModal').addEventListener('click', closeModal);
+
+/* const commentsContainer = document.getElementById('comments');
+ 
+ let page = 1; 
+let allComments = [];
+
+// function to create the comment element 
+const createComment  = (comment) => {
+const commentEl = document.createElement('p')
+commentEl.innerHTML = comment 
+commentsContainer.appendChild(commentEl)
+};
+
+ // function to fetch the comments from the API and display them
+fetch ('https://image-feed-api.vercel.app/api/images?page=1')
+.then(resp => resp.json())
+.then(json => {
+      json.data.forEach(image => {
+     image.comments.forEach(c => allComments.push(`${c.commenter_name}: ${c.comment}`));
+});
+console.log(allComments);
+const shuffledComments = allComments.sort(() => 0.5 - Math.random());
+const selectedComments = shuffledComments.slice(0, 4);
+selectedComments.forEach(c => createComment(c));
+
+}); */ 
+
+// function to create the likes element
+const likesContainer = document.getElementById('likes');
+
+// Array of Halloween emojis
+const halloweenEmojis = ['🎃'];
+
+fetch('https://image-feed-api.vercel.app/api/images?page=1')
+  .then(resp => resp.json())
+  .then(json => {
+    json.data.forEach(image => {
+      const count = image.likes_count || 0;
+
+      for (let i = 0; i < count; i++) {
+        const emoji = document.createElement('span');
+        emoji.classList.add('halloween-icon');
+
+        // choose a random Halloween emoji
+        emoji.textContent = halloweenEmojis[Math.floor(Math.random() * halloweenEmojis.length)];
+
+        emoji.style.left = Math.random() * 90 + '%';
+        emoji.style.animationDuration = (3 + Math.random() * 3) + 's';
+         emoji.style.fontSize = (20 + Math.random() * 20) + 'px';
+
+        likesContainer.appendChild(emoji);
+      }
+    });
+  });
+
+//----------------------------- light theme button ----------------------------- 
+
+//creates a slider button in the header
+const themeButtonLabelEl = document.createElement('label')
+themeButtonLabelEl.classList.add('switch')
+const themeButtonInputEl = document.createElement('input')
+themeButtonInputEl.type = 'checkbox'
+const themeButtonSpanEl = document.createElement('span')
+themeButtonSpanEl.classList.add('slider', 'round')
+themeButtonLabelEl.appendChild(themeButtonInputEl)
+themeButtonLabelEl.appendChild(themeButtonSpanEl)
+
+const headerEl = document.querySelector('header')
+headerEl.appendChild(themeButtonLabelEl)
+
+const bodyEl = document.body;
+let theme = 'default' // sets the current theme to default
+
+//light theme function that overrides the current css
+//and sets theme to 'theme' so the switchTheme function reacts correctly
+const lightTheme = () => {
+  bodyEl.classList.add('light-theme')
+  theme = 'theme'
+}
+
+//sets css values back to the initial values. 
+const reverseLightTheme = () => {
+  bodyEl.classList.remove('light-theme')
+  theme = 'default'
+}
+
+const switchTheme = () => {
+  if (theme === 'default') {
+    lightTheme();
+  } else if (theme === 'theme') {
+    reverseLightTheme();
+  }
+}
+
+themeButtonInputEl.addEventListener('click', switchTheme)
