@@ -151,6 +151,7 @@ buttonContainer.appendChild(buttonEl)
 
 
 import './landing.css';
+import { lightTheme } from '../light-theme-button';
 
 let appTitle = document.getElementById('app-title');
 
@@ -192,6 +193,8 @@ document.getElementById('exitModal').addEventListener('click', closeModal);
 
 //----------------------------- light theme button ----------------------------- 
 
+import { lightTheme } from '../light-theme-button';
+
 //creates a slider button in the header
 const themeButtonLabelEl = document.createElement('label')
 themeButtonLabelEl.classList.add('switch')
@@ -210,10 +213,7 @@ let theme = 'default' // sets the current theme to default
 
 //light theme function that overrides the current css
 //and sets theme to 'theme' so the switchTheme function reacts correctly
-const lightTheme = () => {
-  bodyEl.classList.add('light-theme')
-  theme = 'theme'
-}
+lightTheme();
 
 //sets css values back to the initial values. 
 const reverseLightTheme = () => {
