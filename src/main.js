@@ -1,4 +1,6 @@
 import './style.css'
+// causes for the whole light-th..js file to run (even though we only import one function)
+import { switchTheme } from './light-theme-button';
 
 const sentences = [
   {
@@ -151,7 +153,6 @@ buttonContainer.appendChild(buttonEl)
 
 
 import './landing.css';
-import { lightTheme } from '../light-theme-button';
 
 let appTitle = document.getElementById('app-title');
 
@@ -191,42 +192,5 @@ const closeModal = () => {
 // Attach listener
 document.getElementById('exitModal').addEventListener('click', closeModal);
 
-//----------------------------- light theme button ----------------------------- 
 
-import { lightTheme } from '../light-theme-button';
 
-//creates a slider button in the header
-const themeButtonLabelEl = document.createElement('label')
-themeButtonLabelEl.classList.add('switch')
-const themeButtonInputEl = document.createElement('input')
-themeButtonInputEl.type = 'checkbox'
-const themeButtonSpanEl = document.createElement('span')
-themeButtonSpanEl.classList.add('slider', 'round')
-themeButtonLabelEl.appendChild(themeButtonInputEl)
-themeButtonLabelEl.appendChild(themeButtonSpanEl)
-
-const headerEl = document.querySelector('header')
-headerEl.appendChild(themeButtonLabelEl)
-
-const bodyEl = document.body;
-let theme = 'default' // sets the current theme to default
-
-//light theme function that overrides the current css
-//and sets theme to 'theme' so the switchTheme function reacts correctly
-lightTheme();
-
-//sets css values back to the initial values. 
-const reverseLightTheme = () => {
-  bodyEl.classList.remove('light-theme')
-  theme = 'default'
-}
-
-const switchTheme = () => {
-  if (theme === 'default') {
-    lightTheme();
-  } else if (theme === 'theme') {
-    reverseLightTheme();
-  }
-}
-
-themeButtonInputEl.addEventListener('click', switchTheme)
