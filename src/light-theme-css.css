@@ -43,7 +43,8 @@ input:checked+.slider {
 }
 
 input:checked+.slider:before {
-  -webkit-transform: translateX(calc(100% - 8px)); /* Adjust translation based on slider width and padding */
+  -webkit-transform: translateX(calc(100% - 8px));
+  /* Adjust translation based on slider width and padding */
   -ms-transform: translateX(calc(100% - 8px));
   transform: translateX(calc(100% - 8px));
 }
@@ -54,6 +55,16 @@ input:checked+.slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+@media screen and (max-width: 850px) {
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 8vw;
+    height: 4vw;
+    margin-right: 0;
+  }
 }
 
 /* Light theme changes */
