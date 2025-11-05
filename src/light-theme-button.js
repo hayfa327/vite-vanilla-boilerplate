@@ -13,16 +13,15 @@ themeButtonLabelEl.appendChild(themeButtonSpanEl)
 const headerEl = document.querySelector('header')
 headerEl.appendChild(themeButtonLabelEl)
 
-const bodyEl = document.body;
 let theme = 'default' // sets the current theme to default
 
 export const lightTheme = () => {
-  bodyEl.classList.add('light-theme')
+  document.body.classList.add('light-theme')
   theme = 'theme'
 }
 
 export const reverseLightTheme = () => {
-  bodyEl.classList.remove('light-theme')
+  document.body.classList.remove('light-theme')
   theme = 'default'
 }
 

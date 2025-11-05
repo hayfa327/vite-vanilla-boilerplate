@@ -1,5 +1,6 @@
 import './style.css'
 import './landing.css'
+import './light-theme-css.css'
 import './sound.js'
 import {renderMusicPlayer} from './sound.js';
 // causes for the whole light-th..js file to run (even though we only import one function)
