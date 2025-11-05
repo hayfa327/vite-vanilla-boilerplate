@@ -100,16 +100,17 @@ img {
   width: 30px;
   height: auto;
  border-radius: 50%;
+ padding : 0;
+ margin : 0;
 }
 
 p {
   display:inline-flex;
   margin: 0;
-  font-size: 55px;
-  padding: 1rem 1.5rem;
-  position: relative;
-  top: -38px;
-  line-height: 95px;
+  font-size: 80px;
+  padding: 0.01rem 1.5rem;
+  line-height: 110px;
+  vertical-align: middle;
 }
 
 #app {
@@ -119,7 +120,6 @@ p {
   padding: 4rem 2rem 2rem 2rem;
   border-radius: 12px;
   box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
-
   background: rgba(255, 255, 255, 0.1);   /* translucent background */
   backdrop-filter: blur(10px);            /* blur effect */
   -webkit-backdrop-filter: blur(10px);    /* Safari support */
@@ -132,9 +132,10 @@ footer{
 .image-wrapper {
   position: relative;
   display: inline-block;
-  width: 100px;        /* Adjust size as needed */
-  height: 100px;       /* Or remove to let the image size itself */
+  width: 130px;        /* Adjust size as needed */
+  height: 130px;       /* Or remove to let the image size itself */
   overflow: hidden;
+  vertical-align: middle;
 }
 
 .image-wrapper img {
