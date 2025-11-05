@@ -2,8 +2,8 @@
 .switch {
   position: relative;
   display: inline-block;
-  width: 50px;
-  height: 25px;
+  width: 4vw;
+  height: 2vw;
   margin-right: 0;
 }
 
@@ -28,9 +28,10 @@
 .slider:before {
   position: absolute;
   content: "";
-  height: 25px;
-  width: 25px;
-  left: 4px;
+  height: 90%;
+  width: 50%;
+  left: 7%;
+
   background-image: url('slider-icon.svg');
   background-size: cover;
   -webkit-transition: .4s;
@@ -42,9 +43,9 @@ input:checked+.slider {
 }
 
 input:checked+.slider:before {
-  -webkit-transform: translateX(16px);
-  -ms-transform: translateX(16px);
-  transform: translateX(16px);
+  -webkit-transform: translateX(calc(100% - 8px)); /* Adjust translation based on slider width and padding */
+  -ms-transform: translateX(calc(100% - 8px));
+  transform: translateX(calc(100% - 8px));
 }
 
 .slider.round {
