@@ -253,4 +253,3 @@ const emojisAnimation = () => {fetch('https://image-feed-api.vercel.app/api/imag
     });
   });}
 
-//----------------------------- light theme button ----------------------------- 

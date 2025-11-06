@@ -70,7 +70,7 @@ input:checked+.slider:before {
 /* Light theme changes */
 body.light-theme {
   background:
-    linear-gradient(rgba(255, 255, 255, 0.929), rgba(255, 247, 242, 0.906)),
+    linear-gradient(rgba(255, 255, 255, 0.779), rgba(255, 247, 242, 0.847)),
     url('https://cdn.suwalls.com/wallpapers/holidays/halloween-pattern-on-black-49233-3840x2160.jpg');
   color: #242424;
 }
@@ -83,5 +83,8 @@ body.light-theme button {
 
 body.light-theme #app {
   border: rgba(255, 252, 252, 0.909);
-  box-shadow: 0 4px 10px rgba(194, 133, 120, 0.234);
+  box-shadow: 0 4px 10px rgba(218, 209, 207, 0.711);
+  backdrop-filter: blur(5px);   
+  background: rgba(249, 243, 236, 0.842);   /* translucent background */
+
 }
