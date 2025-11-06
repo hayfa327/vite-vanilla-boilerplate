@@ -5,15 +5,21 @@ export function renderMusicPlayer() {
     playerContainer.classList.add('playPauseBtn');
 
     const icon = document.createElement('i');
-    icon.classList.add('fa-solid', 'fa-circle-play');
+    icon.classList.add('fa-solid', 'fa-circle-pause');
     playerContainer.appendChild(icon);
 
     const audio = document.createElement('audio');
     audio.src = musicHelloweenSrc;
+    audio.loop = true;
     playerContainer.appendChild(audio);
 
+    // Try to play immediately
+    audio.play().catch((err) => {
+      console.log('Autoplay blocked:', err);
+    });
+
     // Variable to keep track of the music state
-    let isPlaying = false;
+    let isPlaying = true;
 
     playerContainer.addEventListener('click', () => {
         if (isPlaying){

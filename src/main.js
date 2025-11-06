@@ -1,9 +1,13 @@
 import './style.css'
 import './landing.css'
+import './light-theme-button.js'
+import './light-theme-css.css';
 import './sound.js'
 import './christmas.css'
 import './Christmas.js'
 import {renderMusicPlayer} from './sound.js';
+// causes for the whole light-th..js file to run (even though we only import one function)
+import { switchTheme } from './light-theme-button';
 
 const sentences = [
   {
@@ -186,6 +190,8 @@ const closeModal = () => {
   init();
   // Icon for music
   renderMusicPlayer();
+  // Start emojis animation 
+  emojisAnimation();
 };
 
 // Attach listener
@@ -223,11 +229,12 @@ const likesContainer = document.getElementById('likes');
 // Array of Halloween emojis
 const halloweenEmojis = ['🎃'];
 
-fetch('https://image-feed-api.vercel.app/api/images?page=1')
+const emojisAnimation = () => {fetch('https://image-feed-api.vercel.app/api/images?page=1')
   .then(resp => resp.json())
   .then(json => {
     json.data.forEach(image => {
-      const count = image.likes_count || 0;
+      // Use the number of likes, but limit the number of emojis to 60
+      const count = Math.min(image.likes_count || 0, 100); 
 
       for (let i = 0; i < count; i++) {
         const emoji = document.createElement('span');
@@ -236,59 +243,18 @@ fetch('https://image-feed-api.vercel.app/api/images?page=1')
         // choose a random Halloween emoji
         emoji.textContent = halloweenEmojis[Math.floor(Math.random() * halloweenEmojis.length)];
 
-        emoji.style.left = Math.random() * 90 + '%';
+        emoji.style.left = Math.random() * 100 + '%';
         emoji.style.animationDuration = (3 + Math.random() * 3) + 's';
-         emoji.style.fontSize = (20 + Math.random() * 20) + 'px';
+        emoji.style.fontSize = (20 + Math.random() * 20) + 'px';
+
+        // Random animation delay — makes emojis start at different times
+        //emoji.style.animationDelay = Math.random() * 3 + 's';
 
         likesContainer.appendChild(emoji);
       }
     });
-  });
+  });}
 
 //----------------------------- light theme button ----------------------------- 
 
-//creates a slider button in the header
-const themeButtonLabelEl = document.createElement('label')
-themeButtonLabelEl.classList.add('switch')
-const themeButtonInputEl = document.createElement('input')
-themeButtonInputEl.type = 'checkbox'
-const themeButtonSpanEl = document.createElement('span')
-themeButtonSpanEl.classList.add('slider', 'round')
-themeButtonLabelEl.appendChild(themeButtonInputEl)
-themeButtonLabelEl.appendChild(themeButtonSpanEl)
-
-const headerEl = document.querySelector('header')
-headerEl.appendChild(themeButtonLabelEl)
-
-const bodyEl = document.body;
-let theme = 'default' // sets the current theme to default
-
-//light theme function that overrides the current css
-//and sets theme to 'theme' so the switchTheme function reacts correctly
-const lightTheme = () => {
-  bodyEl.classList.add('light-theme')
-  theme = 'theme'
-}
-
-//sets css values back to the initial values. 
-const reverseLightTheme = () => {
-  bodyEl.classList.remove('light-theme')
-  theme = 'default'
-}
-
-const switchTheme = () => {
-  if (theme === 'default') {
-    lightTheme();
-  } else if (theme === 'theme') {
-    reverseLightTheme();
-  }
-}
-
-themeButtonInputEl.addEventListener('click', switchTheme)
-
-
 //----------------------------- end of light theme button -----------------------------
-
- 
-
-
