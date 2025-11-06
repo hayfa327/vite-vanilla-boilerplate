@@ -1,6 +1,8 @@
 import './style.css'
 import './landing.css'
 import './sound.js'
+import './christmas.css'
+import './Christmas.js'
 import {renderMusicPlayer} from './sound.js';
 
 const sentences = [
@@ -283,3 +285,10 @@ const switchTheme = () => {
 }
 
 themeButtonInputEl.addEventListener('click', switchTheme)
+
+
+//----------------------------- end of light theme button -----------------------------
+
+ 
+
+

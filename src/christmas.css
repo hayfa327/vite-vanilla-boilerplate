@@ -1,0 +1,14 @@
+
+.theme-btn {
+background-color: rgb(42, 165, 50);
+width: 100px;
+height: 40px;
+border-radius: 8px;
+}
+
+body.christmas-theme {
+  background-image:   url(../christmas-background.jpg);
+  background-size: cover;
+  color: white;
+}
+ 

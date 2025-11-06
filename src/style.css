@@ -1,9 +1,25 @@
 
+.theme-btn {
+background-color: rgb(42, 165, 50);
+width: 100px;
+}
+
+
+
+
+
+
+
+
 .halloween-container {
-  position: relative;
+  position: fixed;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: -1;
 }
 
 .halloween-icon {
@@ -123,7 +139,9 @@ p {
   background: rgba(255, 255, 255, 0.1);   /* translucent background */
   backdrop-filter: blur(10px);            /* blur effect */
   -webkit-backdrop-filter: blur(10px);    /* Safari support */
-  border: 1px solid rgba(137, 50, 0, 0.888); /* subtle border */}
+  border: 1px solid rgba(137, 50, 0, 0.888); /* subtle border */
+
+}
 
 footer{
   padding: 2rem 0;
