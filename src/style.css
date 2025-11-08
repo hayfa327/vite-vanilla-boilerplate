@@ -1,11 +1,16 @@
 
 .halloween-container {
-  position: relative;
+  position: fixed;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: -1;
 }
 
+ 
 .halloween-icon {
   position: absolute;
   animation: floatUp linear infinite;
@@ -28,11 +33,11 @@
     opacity: 1; 
     transform: translateY(90vh) rotate(36deg) scale(0.8);
   }
-  50% {
+  80% {
     opacity: 0.9;
     transform: translateY(50vh) rotate(180deg) scale(1);
   }
-  90% {
+  80% {
     opacity: 0.7;
     transform: translateY(10vh) rotate(324deg) scale(0.9);
   }
@@ -82,8 +87,6 @@ body {
 }
 
 
-
-
 button {
   margin-bottom: 20px;
   border-radius: 8px;
@@ -99,18 +102,18 @@ button {
   height: 40px;
 }
 
-
 img {
   width: 30px;
   height: auto;
  border-radius: 50%;
 }
+
 p {
   display:inline-flex;
   margin: 0;
   font-size: 55px;
   padding: 1rem 1.5rem;
-   position: relative;
+  position: relative;
   top: -38px;
   line-height: 95px;
 }
@@ -126,19 +129,13 @@ p {
   background: rgba(255, 255, 255, 0.1);   /* translucent background */
   backdrop-filter: blur(10px);            /* blur effect */
   -webkit-backdrop-filter: blur(10px);    /* Safari support */
-  border: 1px solid rgba(137, 50, 0, 0.888); /* subtle border */}
+  border: 1px solid rgba(137, 50, 0, 0.888); /* subtle border */
 
-
-
-footer{
-  padding-top: 2rem;
 }
 
-
-
-
-
-
+footer{
+  padding: 2rem 0;
+}
 
 .image-wrapper {
   position: relative;
@@ -174,15 +171,13 @@ footer{
   opacity: 1;                  /* fully visible overlay */
   transition: opacity 0.5s ease;
   cursor: pointer;
-  z-index: 2;                  /* on top of image */
+  z-index:  2;                  /* on top of image */
 }
 
 .overlay.hidden {
   opacity: 0;
   pointer-events: none;        /* allow clicks to hit the image after revealing */
 }
-
-
 
 #app-title{
   color: rgb(242, 59, 4);
@@ -195,6 +190,14 @@ footer{
   opacity: 0.7;
 }
 
+/* The music button */
+.playPauseBtn {
+  font-size: 26px; 
+  color: rgb(242, 59, 4);
+  opacity: 0.8;
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
 
 /* The slider button */
 .switch {

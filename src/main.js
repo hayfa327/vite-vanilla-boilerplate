@@ -1,5 +1,13 @@
 import './style.css'
 import './landing.css'
+import './light-theme-button.js'
+import './light-theme-css.css';
+import './sound.js'
+import './christmas.css'
+import './Christmas.js'
+import {renderMusicPlayer} from './sound.js';
+// causes for the whole light-th..js file to run (even though we only import one function)
+import { switchTheme } from './light-theme-button';
 
 const sentences = [
   {
@@ -74,31 +82,18 @@ buttonContainer.style.display = 'none';
 
 // Function to create and append an image element
 const createImage = (src) => {
-  const wrapperEl = document.createElement('div')
-  wrapperEl.classList.add('image-wrapper')
+  return `
+    <div class="image-wrapper">
+      <img src="${src}" alt="Random image" />
+      <div class="overlay" onclick="this.classList.add('hidden')"></div>
+    </div>
+  `;
+};
 
-  const imageEl = document.createElement('img')
-  imageEl.src = src
-  imageEl.alt = "Random image"
-
-  const overlayEl = document.createElement('div')
-  overlayEl.classList.add('overlay')
-
-  overlayEl.addEventListener('click', () => {
-    overlayEl.classList.add('hidden')
-  })
-
-  wrapperEl.appendChild(imageEl)
-  wrapperEl.appendChild(overlayEl)
-  containerEl.appendChild(wrapperEl)
-}
-
-// Function to create and append a text paragraph
+// Return HTML string for text
 const createText = (text) => {
-  const textEl = document.createElement('p')
-  textEl.innerText = text
-  containerEl.appendChild(textEl)
-}
+  return `<p>${text}</p>`;
+};
 
 // **Fetch all 20 pages in parallel**
 const fetchAllImages = () => {
@@ -120,23 +115,24 @@ const fetchAllImages = () => {
   return Promise.all(pagePromises).then(results => results.flat())
 }
 
-// Updated init function without async/await
+// Updated init function using ${} template literals
 const init = () => {
   fetchAllImages().then(images => {
     const randomSentence = sentences[Math.floor(Math.random() * sentences.length)]
     const shuffledImages = images.sort(() => 0.5 - Math.random())
     const selectedImages = shuffledImages.slice(0, 3)
 
-    createText(randomSentence.first)
-    createImage(selectedImages[0].image_url)
+    const html = `
+      ${createText(randomSentence.first)}
+      ${createImage(selectedImages[0].image_url)}
+      ${createText(randomSentence.second)}
+      ${createImage(selectedImages[1].image_url)}
+      ${createText(randomSentence.third)}
+      ${createImage(selectedImages[2].image_url)}
+      ${createText(randomSentence.fourth)}
+    `
 
-    createText(randomSentence.second)
-    createImage(selectedImages[1].image_url)
-
-    createText(randomSentence.third)
-    createImage(selectedImages[2].image_url)
-
-    createText(randomSentence.fourth)
+    containerEl.innerHTML = html
   })
 }
 
@@ -192,6 +188,10 @@ const closeModal = () => {
   
   // Start the app after modal closes
   init();
+  // Icon for music
+  renderMusicPlayer();
+  // Start emojis animation 
+  window.emojisAnimation();
 };
 
 // Attach listener
@@ -224,70 +224,49 @@ selectedComments.forEach(c => createComment(c));
 }); */ 
 
 // function to create the likes element
-const likesContainer = document.getElementById('likes');
+ const likesContainer = document.getElementById('likes');
 
 // Array of Halloween emojis
-const halloweenEmojis = ['🎃'];
+const halloweenEmojis = ['🎃', '👻', '🕷️', '🦇', '🍬', '🍭', '🧙‍♀️', '🧛‍♂️'];
+const christmasEmojis = [ '❄️' ];
 
-fetch('https://image-feed-api.vercel.app/api/images?page=1')
-  .then(resp => resp.json())
-  .then(json => {
-    json.data.forEach(image => {
-      const count = image.likes_count || 0;
+ 
+window.emojisAnimation = () => {
+  // Check if Christmas theme is active
+  const isChristmasTheme = document.body.classList.contains('christmas-theme');
+  const emojiArray = isChristmasTheme ? christmasEmojis : halloweenEmojis;
 
-      for (let i = 0; i < count; i++) {
-        const emoji = document.createElement('span');
-        emoji.classList.add('halloween-icon');
+  likesContainer.innerHTML = '';
+  
+  fetch('https://image-feed-api.vercel.app/api/images?page=1')
+    .then(resp => resp.json())
+    .then(json => {
+      json.data.forEach(image => { 
+        // Use the number of likes, but limit the number of emojis to 60
+        const count = Math.min(image.likes_count || 0, 100); 
 
-        // choose a random Halloween emoji
-        emoji.textContent = halloweenEmojis[Math.floor(Math.random() * halloweenEmojis.length)];
-
-        emoji.style.left = Math.random() * 90 + '%';
-        emoji.style.animationDuration = (3 + Math.random() * 3) + 's';
-         emoji.style.fontSize = (20 + Math.random() * 20) + 'px';
-
-        likesContainer.appendChild(emoji);
-      }
-    });
-  });
-
-//----------------------------- light theme button ----------------------------- 
-
-//creates a slider button in the header
-const themeButtonLabelEl = document.createElement('label')
-themeButtonLabelEl.classList.add('switch')
-const themeButtonInputEl = document.createElement('input')
-themeButtonInputEl.type = 'checkbox'
-const themeButtonSpanEl = document.createElement('span')
-themeButtonSpanEl.classList.add('slider', 'round')
-themeButtonLabelEl.appendChild(themeButtonInputEl)
-themeButtonLabelEl.appendChild(themeButtonSpanEl)
-
-const headerEl = document.querySelector('header')
-headerEl.appendChild(themeButtonLabelEl)
-
-const bodyEl = document.body;
-let theme = 'default' // sets the current theme to default
-
-//light theme function that overrides the current css
-//and sets theme to 'theme' so the switchTheme function reacts correctly
-const lightTheme = () => {
-  bodyEl.classList.add('light-theme')
-  theme = 'theme'
-}
-
-//sets css values back to the initial values. 
-const reverseLightTheme = () => {
-  bodyEl.classList.remove('light-theme')
-  theme = 'default'
-}
-
-const switchTheme = () => {
-  if (theme === 'default') {
-    lightTheme();
-  } else if (theme === 'theme') {
-    reverseLightTheme();
+        for (let i = 0; i < count; i++) {
+          const emoji = document.createElement('span');
+           if (isChristmasTheme) {
+    emoji.classList.add('emoji-icon');  
+  } else {
+    emoji.classList.add('halloween-icon');  
   }
-}
 
-themeButtonInputEl.addEventListener('click', switchTheme)
+          
+          // choose a random emoji from the appropriate array
+          emoji.textContent = emojiArray[Math.floor(Math.random() * emojiArray.length)];
+
+          emoji.style.left = Math.random() * 100 + '%';
+          emoji.style.animationDuration = (3 + Math.random() * 3) + 's';
+          emoji.style.fontSize = (20 + Math.random() * 20) + 'px';
+
+          likesContainer.appendChild(emoji);
+          
+        }
+      });
+    });
+};
+
+
+
