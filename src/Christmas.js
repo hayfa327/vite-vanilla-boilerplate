@@ -11,13 +11,15 @@ document.addEventListener('DOMContentLoaded', () => {
   let mode = 'default'; 
 
   const christmasTheme = () => {
-    bodyChristmas.classList.add('christmas-theme')
-    mode = 'christmas'
+    bodyChristmas.classList.add('christmas-theme');
+    mode = 'christmas';
+    emojisAnimation();
   }
 
   const removeChristmas = () => {
-    bodyChristmas.classList.remove('christmas-theme')
+    bodyChristmas.classList.remove('christmas-theme');
     mode = 'default'; 
+    emojisAnimation();
   }
 
   const switchThemeChristmas = () => {
@@ -28,10 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  themeButtonChristmas.addEventListener('click', switchThemeChristmas)
-});
+  themeButtonChristmas.addEventListener('click', switchThemeChristmas);
  
-
-
- 
-
+ emojisAnimation();
+ });

@@ -191,7 +191,7 @@ const closeModal = () => {
   // Icon for music
   renderMusicPlayer();
   // Start emojis animation 
-  emojisAnimation();
+  window.emojisAnimation();
 };
 
 // Attach listener
@@ -224,37 +224,49 @@ selectedComments.forEach(c => createComment(c));
 }); */ 
 
 // function to create the likes element
-const likesContainer = document.getElementById('likes');
+ const likesContainer = document.getElementById('likes');
 
 // Array of Halloween emojis
-const halloweenEmojis = ['🎃'];
+const halloweenEmojis = ['🎃', '👻', '🕷️', '🦇', '🍬', '🍭', '🧙‍♀️', '🧛‍♂️'];
+const christmasEmojis = [ '❄️' ];
 
-const emojisAnimation = () => {fetch('https://image-feed-api.vercel.app/api/images?page=1')
-  .then(resp => resp.json())
-  .then(json => {
-    json.data.forEach(image => {
-      // Use the number of likes, but limit the number of emojis to 60
-      const count = Math.min(image.likes_count || 0, 100); 
+ 
+window.emojisAnimation = () => {
+  // Check if Christmas theme is active
+  const isChristmasTheme = document.body.classList.contains('christmas-theme');
+  const emojiArray = isChristmasTheme ? christmasEmojis : halloweenEmojis;
 
-      for (let i = 0; i < count; i++) {
-        const emoji = document.createElement('span');
-        emoji.classList.add('halloween-icon');
+  likesContainer.innerHTML = '';
+  
+  fetch('https://image-feed-api.vercel.app/api/images?page=1')
+    .then(resp => resp.json())
+    .then(json => {
+      json.data.forEach(image => { 
+        // Use the number of likes, but limit the number of emojis to 60
+        const count = Math.min(image.likes_count || 0, 100); 
 
-        // choose a random Halloween emoji
-        emoji.textContent = halloweenEmojis[Math.floor(Math.random() * halloweenEmojis.length)];
+        for (let i = 0; i < count; i++) {
+          const emoji = document.createElement('span');
+           if (isChristmasTheme) {
+    emoji.classList.add('emoji-icon');  
+  } else {
+    emoji.classList.add('halloween-icon');  
+  }
 
-        emoji.style.left = Math.random() * 100 + '%';
-        emoji.style.animationDuration = (3 + Math.random() * 3) + 's';
-        emoji.style.fontSize = (20 + Math.random() * 20) + 'px';
+          
+          // choose a random emoji from the appropriate array
+          emoji.textContent = emojiArray[Math.floor(Math.random() * emojiArray.length)];
 
-        // Random animation delay — makes emojis start at different times
-        //emoji.style.animationDelay = Math.random() * 3 + 's';
+          emoji.style.left = Math.random() * 100 + '%';
+          emoji.style.animationDuration = (3 + Math.random() * 3) + 's';
+          emoji.style.fontSize = (20 + Math.random() * 20) + 'px';
 
-        likesContainer.appendChild(emoji);
-      }
+          likesContainer.appendChild(emoji);
+          
+        }
+      });
     });
-  });}
+};
 
-//----------------------------- light theme button ----------------------------- 
 
-//----------------------------- end of light theme button -----------------------------
+
