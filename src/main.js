@@ -165,7 +165,6 @@ selectedComments.forEach(c => createComment(c));
 const halloweenEmojis = ['🎃', '👻', '🕷️', '🦇', '🍬', '🍭', '🧙‍♀️', '🧛‍♂️'];
 const christmasEmojis = [ '❄️' ];
 
- 
 window.emojisAnimation = () => {
   // Check if Christmas theme is active
   const isChristmasTheme = document.body.classList.contains('christmas-theme');
@@ -182,8 +181,7 @@ window.emojisAnimation = () => {
 
         for (let i = 0; i < count; i++) {
           const emoji = document.createElement('span');
-          setTimeout(() => {
-           if (isChristmasTheme) {
+          if (isChristmasTheme) {
             emoji.classList.add('emoji-icon');  
           } else {
             emoji.classList.add('halloween-icon');  
@@ -196,11 +194,7 @@ window.emojisAnimation = () => {
           emoji.style.fontSize = (20 + Math.random() * 20) + 'px';
 
           likesContainer.appendChild(emoji);
-      }, i * 50); // each emoji delayed by 50ms
-        }
+      }
     });
   });
 };
-
-
-

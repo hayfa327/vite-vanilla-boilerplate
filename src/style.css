@@ -197,7 +197,7 @@ footer{
   opacity: 0.8;
   transition: transform 0.2s ease-in-out;
   cursor: pointer;
-  box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
 }
 
 /* The slider button */
