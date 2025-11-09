@@ -1,15 +1,25 @@
-const musicHelloweenSrc = 'src/halloween-background-music-425891.mp3';
+// Paths for Halloween and Christmas music
+const musicHalloweenSrc = 'src/halloween-background-music-425891.mp3';
+const musicCristmasSrc = 'src/we-wish-you-a-merry-christmas-265800.mp3';
 
+// Global variables for audio, icon, and play state
+let audio;
+let icon;
+let isPlaying = false;
+
+// Function to create and render the music player
 export function renderMusicPlayer() {
     const playerContainer = document.getElementById('player-container');
     playerContainer.classList.add('playPauseBtn');
 
-    const icon = document.createElement('i');
-    icon.classList.add('fa-solid', 'fa-circle-pause');
+    // Create the play/pause icon
+    icon = document.createElement('i');
+    icon.classList.add('fa-solid', 'fa-circle-pause'); // initial state is playing
     playerContainer.appendChild(icon);
 
-    const audio = document.createElement('audio');
-    audio.src = musicHelloweenSrc;
+    // Create the audio element and start with Halloween music
+    audio = document.createElement('audio');
+    audio.src = musicHalloweenSrc;
     audio.loop = true;
     playerContainer.appendChild(audio);
 
@@ -17,26 +27,30 @@ export function renderMusicPlayer() {
     audio.play().catch((err) => {
       console.log('Autoplay blocked:', err);
     });
+    isPlaying = true; // music is playing
 
-    // Variable to keep track of the music state
-    let isPlaying = true;
-
+    // Toggle play/pause when clicking the player container
     playerContainer.addEventListener('click', () => {
-        if (isPlaying){
-            // If music is playing, pause it
-            audio.pause();
-            // Change icon class for play icon
-            icon.classList.remove('fa-circle-pause');
-            icon.classList.add('fa-circle-play');
+        if (isPlaying) {
+            audio.pause(); // pause the music
+            icon.classList.replace('fa-circle-pause', 'fa-circle-play'); // update icon
         } else {
-            // If music is pausing, play it
-            audio.play();
-            // Change icon class for pause icon
-            icon.classList.remove('fa-circle-play');
-            icon.classList.add('fa-circle-pause');
+            audio.play().catch(err => console.log('Autoplay blocked:', err)); // play music
+            icon.classList.replace('fa-circle-play', 'fa-circle-pause'); // update icon
         }
-        isPlaying = !isPlaying;
-    })
-
+        isPlaying = !isPlaying; // update state
+    });
 }
 
+// Function to switch music immediately when theme changes
+export function switchMusic(theme) {
+    if (!audio) return;
+
+    // Change the source depending on theme
+    audio.src = theme === 'christmas' ? musicCristmasSrc : musicHalloweenSrc;
+
+    // Play immediately
+    audio.play().catch(err => console.log('Autoplay blocked:', err));
+    icon.classList.replace('fa-circle-play', 'fa-circle-pause'); // make icon show "playing"
+    isPlaying = true; // update state
+}
