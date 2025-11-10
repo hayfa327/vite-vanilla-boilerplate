@@ -13,10 +13,7 @@ border-radius: 8px;
 }
 
 
-body.christmas-theme .image-wrapper img {
-  content:  url(papa.png);
-}
-
+ 
 
 body.christmas-theme { 
   background-image: url(papa2.png);

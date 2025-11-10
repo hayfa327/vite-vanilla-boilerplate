@@ -139,10 +139,13 @@ let allComments = [];
 
 // function to create the comment element 
 const createComment  = (comment) => {
-const commentEl = document.createElement('p')
-commentEl.innerHTML = comment 
-commentsContainer.appendChild(commentEl)
-};
+const commentEl = document.createElement('p');
+commentEl.innerHTML = comment;
+commentEl.classList.add('comment'); 
+commentsContainer.appendChild(commentEl);
+
+setTimeout(() => commentEl.classList.add('visible'),10); 
+};*/
 
  // function to fetch the comments from the API and display them
 fetch ('https://image-feed-api.vercel.app/api/images?page=1')
@@ -156,13 +159,18 @@ const shuffledComments = allComments.sort(() => 0.5 - Math.random());
 const selectedComments = shuffledComments.slice(0, 4);
 selectedComments.forEach(c => createComment(c));
 
-}); */ 
+}); 
+
+
+
+
+
 
 // function to create the likes element
  const likesContainer = document.getElementById('likes');
 
 // Array of Halloween emojis
-const halloweenEmojis = ['🎃', '👻', '🕷️', '🦇', '🍬', '🍭', '🧙‍♀️', '🧛‍♂️'];
+const halloweenEmojis = ['🎃'];
 const christmasEmojis = [ '❄️' ];
 
  
