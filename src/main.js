@@ -173,7 +173,6 @@ selectedComments.forEach(c => createComment(c));
 const halloweenEmojis = ['🎃'];
 const christmasEmojis = [ '❄️' ];
 
- 
 window.emojisAnimation = () => {
   // Check if Christmas theme is active
   const isChristmasTheme = document.body.classList.contains('christmas-theme');
@@ -186,17 +185,15 @@ window.emojisAnimation = () => {
     .then(json => {
       json.data.forEach(image => { 
         // Use the number of likes, but limit the number of emojis to 60
-        const count = Math.min(image.likes_count || 0, 100); 
+        const count = Math.min(image.likes_count || 0, 70); 
 
         for (let i = 0; i < count; i++) {
           const emoji = document.createElement('span');
-           if (isChristmasTheme) {
-    emoji.classList.add('emoji-icon');  
-  } else {
-    emoji.classList.add('halloween-icon');  
-  }
-
-          
+          if (isChristmasTheme) {
+            emoji.classList.add('emoji-icon');  
+          } else {
+            emoji.classList.add('halloween-icon');  
+          }
           // choose a random emoji from the appropriate array
           emoji.textContent = emojiArray[Math.floor(Math.random() * emojiArray.length)];
 
@@ -205,11 +202,7 @@ window.emojisAnimation = () => {
           emoji.style.fontSize = (20 + Math.random() * 20) + 'px';
 
           likesContainer.appendChild(emoji);
-          
-        }
-      });
+      }
     });
+  });
 };
-
-
-

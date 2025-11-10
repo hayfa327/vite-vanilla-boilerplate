@@ -1,28 +1,29 @@
 
 .halloween-container {
-  position: fixed;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: -1;
+ position: fixed;
+ top: 0;
+ left: 0;
+ z-index: -2;
+ height: 100vh;
+ width: 100vw;
+ overflow: hidden;
 }
+
 
  
 .halloween-icon {
-  position: absolute;
-  animation: floatUp linear infinite;
-  pointer-events: none;
-  opacity: 0.8;
-  transition: all 0.3s ease;
+ position: absolute;
+ animation: floatUp linear infinite;
+ pointer-events: none;
+ opacity: 0.8;
+ transition: all 0.3s ease;
 }
 
 .halloween-icon:hover {
-  transform: scale(1.2);
-  opacity: 1;
+ transform: scale(1.2);
+ opacity: 1;
 }
+
 
 @keyframes floatUp {
   0% { 
@@ -78,13 +79,15 @@ header h1 {
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  min-width: 300px;
-  text-align: center;
-  color: white;
-  
+ margin: 0;
+ padding: 0;
+ min-width: 300px;
+ text-align: center;
+ color: white;
+ position: relative;
+ z-index: 0;
 }
+
 
 
 button {
@@ -103,63 +106,62 @@ button {
 }
 
 img {
-  width: 30px;
-  height: auto;
- border-radius: 50%;
+ width: 24px;
+ height: auto;
+border-radius: 50%;
+padding : 0;
+margin : 0;
 }
 
 p {
-  display:inline-flex;
-  margin: 0;
-  font-size: 55px;
-  padding: 1rem 1.5rem;
-  position: relative;
-  top: -38px;
-  line-height: 95px;
+ display:inline-flex;
+ margin: 0;
+ font-size: 69px;
+ padding: 0.01rem 1.5rem;
+ line-height: 100px;
+ vertical-align: middle;
 }
 
 #app {
-  max-width: 90%;
-  margin: 20px auto;
-  margin-bottom: 40px;
-  padding: 4rem 2rem 2rem 2rem;
-  border-radius: 12px;
-  box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
-
-  background: rgba(255, 255, 255, 0.1);   /* translucent background */
-  backdrop-filter: blur(10px);            /* blur effect */
-  -webkit-backdrop-filter: blur(10px);    /* Safari support */
-  border: 1px solid rgba(137, 50, 0, 0.888); /* subtle border */
-
-}
+ max-width: 75.6%;
+ margin: 17px auto;
+ margin-bottom: 34px;
+ padding: 3.4rem 1.7rem 1.7rem 1.7rem;
+ border-radius: 11px;
+ box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+ background: rgba(80, 66, 66, 0.8);   /* translucent background */
+ backdrop-filter: blur(10px);            /* blur effect */
+ -webkit-backdrop-filter: blur(10px);    /* Safari support */
+ border: 1px solid rgba(137, 50, 0, 0.888); /* subtle border */}
 
 footer{
   padding: 2rem 0;
 }
 
 .image-wrapper {
-  position: relative;
-  display: inline-block;
-  width: 100px;        /* Adjust size as needed */
-  height: 100px;       /* Or remove to let the image size itself */
-  overflow: hidden;
+ position: relative;
+ display: inline-block;
+ width: 104px;        /* Adjust size as needed */
+ height: 104px;       /* Or remove to let the image size itself */
+ overflow: hidden;
+ vertical-align: middle;
 }
 
 .image-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  border-radius: 50%;
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ display: block;
+ border-radius: 50%;
 }
 
 .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
+ position: absolute;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ border-radius: 50%;
 
   /* Spooky spiderweb overlay */
   background-color: rgba(0, 0, 0, 0.7); /* semi-transparent dark base */
@@ -192,11 +194,12 @@ footer{
 
 /* The music button */
 .playPauseBtn {
-  font-size: 26px; 
+  font-size: 32px; 
   color: rgb(242, 59, 4);
   opacity: 0.8;
   transition: transform 0.2s ease-in-out;
   cursor: pointer;
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
 }
 
 /* The slider button */
