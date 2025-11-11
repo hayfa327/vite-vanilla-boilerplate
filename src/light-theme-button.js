@@ -1,5 +1,3 @@
-import "./Christmas"
-import "./main"
 //----------------------------- light theme button ----------------------------- 
 
 // Creates a slider button
