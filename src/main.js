@@ -132,49 +132,24 @@ const closeModal = () => {
 // Attach listener
 document.getElementById('exitModal').addEventListener('click', closeModal);
 
-/* const commentsContainer = document.getElementById('comments');
- 
- let page = 1; 
-let allComments = [];
+const likesContainer = document.getElementById('likes');
 
-// function to create the comment element 
-const createComment  = (comment) => {
-const commentEl = document.createElement('p');
-commentEl.innerHTML = comment;
-commentEl.classList.add('comment'); 
-commentsContainer.appendChild(commentEl);
-
-setTimeout(() => commentEl.classList.add('visible'),10); 
-};*/
-
- // function to fetch the comments from the API and display them
-fetch ('https://image-feed-api.vercel.app/api/images?page=1')
-.then(resp => resp.json())
-.then(json => {
-      json.data.forEach(image => {
-     image.comments.forEach(c => allComments.push(`${c.commenter_name}: ${c.comment}`));
-});
-console.log(allComments);
-const shuffledComments = allComments.sort(() => 0.5 - Math.random());
-const selectedComments = shuffledComments.slice(0, 4);
-selectedComments.forEach(c => createComment(c));
-
-}); 
-
-
-
-
-
-
-// function to create the likes element
- const likesContainer = document.getElementById('likes');
-
-// Array of Halloween emojis
-const halloweenEmojis = ['🎃'];
-const christmasEmojis = [ '❄️' ];
+const halloweenEmojis = [ '🎃', '👻', '🕷️', '🧙‍♀️', '🧛‍♂️', '🦇', '🍬', '🍭', '💀', '👹' ];
+const christmasEmojis = [ '❄️', '🎄', '🎅', '⛄', '🦌', '🎁', '🍪', '🍷', '🌟', '🕯️' ];
+let userLoggedIn = false; // Track if user has completed login
+let emojiInterval; // To control the loop later (start/stop)
 
 window.emojisAnimation = () => {
-  // Check if Christmas theme is active
+  // Stop any previous animation loop if it's running
+  if (emojiInterval) clearInterval(emojiInterval);
+
+  // Don't show emojis before login
+  if (!userLoggedIn) {
+    likesContainer.innerHTML = '';
+    return;
+  }
+
+  // Check theme and choose emoji set
   const isChristmasTheme = document.body.classList.contains('christmas-theme');
   const emojiArray = isChristmasTheme ? christmasEmojis : halloweenEmojis;
 

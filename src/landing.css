@@ -33,7 +33,7 @@
 
 input {
   padding: 0.5rem;
-  width: 100px;
+  width: 120px;
   font-size: 1rem;
   border-radius: 8px;
   border: 1px solid orangered;
@@ -41,9 +41,19 @@ input {
   color: inherit;
   height: 25px;
   margin: 0 5px;
+  
 }
 
 
 #app-title{
   padding: 25px 0;
 }
+
+ @media (max-width: 768px) {
+
+.modal-box {
+  max-width: 300px;
+}
+
+
+ }

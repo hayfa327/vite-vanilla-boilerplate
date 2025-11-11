@@ -1,5 +1,6 @@
 import { switchMusic } from './sound.js';
 
+
 document.addEventListener('DOMContentLoaded', () => {
   const bodyChristmas = document.body;
   const appTitle = document.getElementById('app-title'); 
@@ -64,3 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
  
   emojisAnimation();
  });
+
+
+
+

@@ -1,8 +1,8 @@
 .theme-btn {
-background-color: rgb(42, 165, 50);
-width: 100px;
-height: 40px;
-border-radius: 8px;
+  background-color: rgb(42, 165, 50);
+  width: 100px;
+  height: 40px;
+  border-radius: 8px;
 }
 
 
@@ -14,23 +14,52 @@ border-radius: 8px;
 
 body.christmas-theme .overlay {
   background-image: url(papa.png);
-} 
+}
 
 
-body.christmas-theme { 
-  background-image: url(papa2.png);
+body.christmas-theme {
+  background-image: url(backG.png);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   min-height: 100vh;
   color: white;
- 
+
 }
 
-  body.christmas-theme .halloween-container {
-   /* z-index: 10; /* moves in front during Christmas */
-  }
+body.christmas-theme .halloween-container {
+  /* z-index: 10; /* moves in front during Christmas */
+}
+
+body.christmas-theme #app {
+  box-shadow: 0 0 30px rgba(145, 148, 226, 0.5);
+  background: rgba(80, 66, 66, 0.8);
+  /* translucent background */
+  backdrop-filter: blur(10px);
+  /* blur effect */
+  -webkit-backdrop-filter: blur(10px);
+  /* Safari support */
+  border: 1px solid rgba(149, 172, 236, 0.771);
+  /* subtle border */
+}
+
+body.christmas-theme .playPauseBtn {
+  font-size: 32px; 
+  color: rgb(183, 238, 244);
+  opacity: 0.8;
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+body.christmas-theme button {
+  border: 1px solid rgba(149, 172, 236, 0.771);
+}
+
+body.christmas-theme .slider:before {
+  background-image: url('Snowflake.svg');
+}
 
 .emoji-icon {
   position: absolute;
@@ -44,34 +73,40 @@ body.christmas-theme {
   transform: scale(1.2);
   opacity: 1;
 }
- 
- @keyframes floatDown {
-  0% { 
-    transform: translateY(-10vh) rotate(0deg) scale(0.5); 
-    opacity: 0; 
+
+@keyframes floatDown {
+  0% {
+    transform: translateY(-10vh) rotate(0deg) scale(0.5);
+    opacity: 0;
   }
-  10% { 
-    opacity: 1; 
+
+  10% {
+    opacity: 1;
     transform: translateY(0vh) rotate(36deg) scale(0.8);
   }
+
   30% {
     opacity: 0.7;
     transform: translateY(30vh) rotate(108deg) scale(0.9);
   }
+
   50% {
     opacity: 0.9;
     transform: translateY(50vh) rotate(180deg) scale(1);
   }
+
   70% {
     opacity: 0.8;
     transform: translateY(70vh) rotate(252deg) scale(0.9);
   }
+
   90% {
     opacity: 0.6;
     transform: translateY(90vh) rotate(324deg) scale(0.8);
   }
-  100% { 
-    transform: translateY(110vh) rotate(360deg) scale(0.5); 
-    opacity: 0; 
+
+  100% {
+    transform: translateY(110vh) rotate(360deg) scale(0.5);
+    opacity: 0;
   }
 }
