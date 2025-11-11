@@ -13,7 +13,6 @@ import {sentences} from './data.js'
 const containerEl = document.getElementById('app')
 const buttonContainer = document.getElementById('button-container')
 
-
 // Hide main content initially until modal is closed
 containerEl.style.display = 'none';
 buttonContainer.style.display = 'none';
@@ -135,74 +134,53 @@ const closeModal = () => {
   emojisAnimation();
   // Hide comments after user logs in
   showCommentsAfterModal();
- 
 };
 
 // Attach listener
 document.getElementById('exitModal').addEventListener('click', closeModal);
 
-<<<<<<< HEAD
 const likesContainer = document.getElementById('likes');
 
-const halloweenEmojis = [ '🎃', '👻', '🕷️', '🧙‍♀️', '🧛‍♂️', '🦇', '🍬', '🍭', '💀', '👹' ];
-const christmasEmojis = [ '❄️', '🎄', '🎅', '⛄', '🦌', '🎁', '🍪', '🍷', '🌟', '🕯️' ];
-=======
-
-
-const likesContainer = document.getElementById('likes');
-
- const halloweenEmojis = [ '🎃', '👻', '🕷️', '🧙‍♀️', '🧛‍♂️', '🦇', '🍬', '🍭', '💀', '👹' ];
+// Array of Halloween emojis
+const halloweenEmojis = ['🎃', '👻', '🕷️', '🦇', '🍬', '🍭', '🧙‍♀️', '🧛‍♂️'];
 const christmasEmojis = [ '❄️' ];
->>>>>>> new-branch-comment
 let userLoggedIn = false; // Track if user has completed login
-let emojiInterval; // To control the loop later (start/stop)
 
 window.emojisAnimation = () => {
-  // Stop any previous animation loop if it's running
-  if (emojiInterval) clearInterval(emojiInterval);
-
   // Don't show emojis before login
   if (!userLoggedIn) {
     likesContainer.innerHTML = '';
     return;
   }
-
+  
   // Check theme and choose emoji set
   const isChristmasTheme = document.body.classList.contains('christmas-theme');
   const emojiArray = isChristmasTheme ? christmasEmojis : halloweenEmojis;
 
   likesContainer.innerHTML = '';
-
-  // Fetch data once to get total likes count
+  
   fetch('https://image-feed-api.vercel.app/api/images?page=1')
     .then(resp => resp.json())
     .then(json => {
-      // Collect all likes counts
-      const totalLikes = json.data.reduce((sum, img) => sum + (img.likes_count || 0), 50);
-      const emojiCount = Math.min(totalLikes, 1000); // set a limit to avoid too many emojis
+      json.data.forEach(image => { 
+        // Use the number of likes, but limit the number of emojis to 60
+        const count = Math.min(image.likes_count || 0, 60); 
 
-      let created = 0;
+        for (let i = 0; i < 50; i++) {
+          const emoji = document.createElement('span');
+          emoji.classList.add(isChristmasTheme ? 'emoji-icon' : 'halloween-icon');
+          // choose a random emoji from the appropriate array
+          emoji.textContent = emojiArray[Math.floor(Math.random() * emojiArray.length)];
 
-      // Create emojis gradually every 300ms
-      emojiInterval = setInterval(() => {
-        // Stop when we reach the limit
-        if (created >= emojiCount) {
-          clearInterval(emojiInterval);
-          return;
+          emoji.style.left = Math.random() * 100 + '%';
+          emoji.style.animationDuration = (1 + Math.random() * 10) + 's';
+          emoji.style.fontSize = (20 + Math.random() * 25) + 'px';
+
+          likesContainer.appendChild(emoji);
         }
-      const emoji = document.createElement('span');
-        emoji.textContent = emojiArray[Math.floor(Math.random() * emojiArray.length)];
-        emoji.classList.add(isChristmasTheme ? 'emoji-icon' : 'halloween-icon');
-
-           emoji.style.left = Math.random() * 100 + '%';
-          emoji.style.animationDuration = (3 + Math.random() * 1) + 's';
-          emoji.style.fontSize = (20 + Math.random() * 30) + 'px';
-
-        likesContainer.appendChild(emoji);
-        created++;
-      }, 600);  
+      });
     });
- };
+};
 
 
  

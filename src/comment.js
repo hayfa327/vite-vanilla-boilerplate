@@ -29,9 +29,14 @@ const loadComments = () => {
 
 export const showCommentsOnLanding = () => {
   if (!commentsContainer || modalCompleted) return (commentsContainer.style.display = 'none');
+  // Show comments only on default theme AND before login
   const isDefault = !document.body.classList.contains('christmas-theme') && !document.body.classList.contains('light-theme');
-  commentsContainer.style.display = isDefault ? 'block' : 'none';
-  if (isDefault) loadComments();
+  if (isDefault && !modalCompleted) {
+    commentsContainer.style.display = 'block';
+    loadComments();
+  } else {
+    commentsContainer.style.display = 'none';
+  }
 };
 
 export const showCommentsAfterModal = () => {
@@ -45,7 +50,7 @@ export const hideComments = () => {
 
 // Initialize on page load
 if (commentsContainer) {
-  commentsContainer.style.display = 'block';
+  commentsContainer.style.display = 'none'; // Start hidden by default
   setTimeout(showCommentsOnLanding, 100);
 }
 
