@@ -25,7 +25,7 @@ export function renderMusicPlayer() {
 
     // Try to play immediately
     audio.play().catch((err) => {
-      console.log('Autoplay blocked:', err);
+        console.log('Autoplay blocked:', err);
     });
     isPlaying = true; // music is playing
 
@@ -48,6 +48,7 @@ export function switchMusic(theme) {
 
     // Change the source depending on theme
     audio.src = theme === 'christmas' ? musicCristmasSrc : musicHalloweenSrc;
+
 
     // Play immediately
     audio.play().catch(err => console.log('Autoplay blocked:', err));
