@@ -29,17 +29,17 @@ body.christmas-theme {
 }
 
 body.christmas-theme .halloween-container {
-  /* z-index: 10; /* moves in front during Christmas */
+  z-index: 10; /* moves in front during Christmas */
 }
 
 body.christmas-theme #app {
   box-shadow: 0 0 30px rgba(145, 148, 226, 0.5);
   background: rgba(80, 66, 66, 0.8);
   /* translucent background */
-  backdrop-filter: blur(10px);
-  /* blur effect */
   -webkit-backdrop-filter: blur(10px);
   /* Safari support */
+  backdrop-filter: blur(10px);
+  /* blur effect */
   border: 1px solid rgba(149, 172, 236, 0.771);
   /* subtle border */
 }

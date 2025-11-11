@@ -1,4 +1,5 @@
 import { switchMusic } from './sound.js';
+import { hideComments } from './comment.js';
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     bodyChristmas.classList.add('christmas-theme');
     mode = 'christmas';
     emojisAnimation();
+    hideComments(); // Hide comments in Christmas theme
 
     // Change title for Christmas mode
     switchMusic('christmas');
@@ -31,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     bodyChristmas.classList.remove('christmas-theme');
     mode = 'default'; 
     emojisAnimation();
-
+    hideComments(); // Hide comments when reverting to default
     //  Revert title to Halloween theme
     switchMusic('halloween');
     if (appTitle) {
@@ -63,9 +65,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   themeButtonChristmas.addEventListener('click', switchThemeChristmas);
  
-  emojisAnimation();
+  // Don't start emojis on page load - only after login
  });
-
-
-
-
