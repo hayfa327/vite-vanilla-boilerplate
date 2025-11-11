@@ -145,6 +145,7 @@ footer{
  height: 104px;       /* Or remove to let the image size itself */
  overflow: hidden;
  vertical-align: middle;
+ overflow: visible;
 }
 
 .image-wrapper img {
@@ -165,7 +166,7 @@ footer{
 
   /* Spooky spiderweb overlay */
   background-color: rgba(0, 0, 0, 0.7); /* semi-transparent dark base */
-  background-image: url('https://www.collette.co.nz/images/609151/spiderweb.jpg');
+  background-image: url('spider.jpg');
   background-size: cover;      /* cover entire image */
   background-repeat: no-repeat;
   background-position: center;
@@ -174,12 +175,57 @@ footer{
   transition: opacity 0.5s ease;
   cursor: pointer;
   z-index:  2;                  /* on top of image */
+    /* 🔮 Add button-like depth & glow */
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.6),      /* subtle drop shadow */
+    0 0 10px rgba(255, 69, 0, 0.4),    /* outer orange glow */
+    inset 0 0 10px rgba(255, 69, 0, 0.3); /* inner glow for depth */
+}
+
+.overlay:hover {
+  transform: scale(1.05); /* small “press” animation */
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.7),
+    0 0 20px rgba(255, 69, 0, 0.8),
+    inset 0 0 15px rgba(255, 69, 0, 0.5);
+  opacity: 0.95;
 }
 
 .overlay.hidden {
   opacity: 0;
   pointer-events: none;        /* allow clicks to hit the image after revealing */
 }
+
+/* Blinking circular frame around overlay */
+.overlay::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 120%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  border: 3px solid rgba(255, 69, 0, 0.8); /* orange glow */
+  box-shadow: 0 0 15px rgba(255, 83, 20, 0.8);
+  opacity: 0;
+  animation: blinkRing 1.5s infinite ease-in-out;
+  pointer-events: none; /* so it doesn’t block clicks */
+  z-index: 1; /* below overlay but above the image */
+}
+
+/* Blinking keyframes */
+@keyframes blinkRing {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 1;
+  }
+}
+
 
 #app-title{
   color: rgb(242, 59, 4);
