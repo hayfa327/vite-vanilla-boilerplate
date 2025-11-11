@@ -31,24 +31,75 @@ const createText = (text) => {
 };
 
 // **Fetch all 20 pages in parallel**
-const fetchAllImages = () => {
-  const totalPages = 20
-  const pagePromises = []
+const fetchAllImages = async () => {
+  const totalPages = 20;
+  const failedPages = [];
+  const pagePromises = [];
 
+ // --- Show loading overlay ---
+const loadingOverlay = document.createElement('div');
+loadingOverlay.id = 'loading-overlay';
+loadingOverlay.innerHTML = `<div id="loading-message">🔮 Operating magic 🔮</div>`;
+
+// Append overlay to body (or #app if you want it relative to app)
+document.body.appendChild(loadingOverlay);
+
+// Optionally hide the app and theme button while loading
+containerEl.style.display = 'none';
+document.querySelector('.theme-btn')?.classList.add('hidden');
+
+
+  //  Start fetching all pages 
   for (let page = 1; page <= totalPages; page++) {
-    pagePromises.push(
-      fetch(`https://image-feed-api.vercel.app/api/images?page=${page}`)
-        .then(resp => resp.json())
-        .then(json => json.data)
-        .catch(err => {
-          console.error(`Failed to fetch page ${page}`, err)
-          return []
-        })
-    )
+    const promise = (async () => {
+      try {
+        const resp = await fetch(`https://image-feed-api.vercel.app/api/images?page=${page}`);
+        if (!resp.ok) {
+          throw new Error(`HTTP error ${resp.status}`);
+        }
+        const json = await resp.json();
+        return json.data;
+      } catch (err) {
+        console.error(`❌ Failed to fetch page ${page}`, err);
+        failedPages.push(page);
+        return [];
+      }
+    })();
+
+    pagePromises.push(promise);
   }
 
-  return Promise.all(pagePromises).then(results => results.flat())
-}
+  //  Wait for all fetches to finish 
+  const results = await Promise.all(pagePromises);
+  const allImages = results.flat();
+
+  //  Remove loading message 
+// After all images are fetched
+loadingOverlay.remove();
+
+// Show the app and theme button again
+containerEl.style.display = 'block';
+document.querySelector('.theme-btn')?.classList.remove('hidden');
+
+
+  //  Show warning if some pages failed 
+  if (failedPages.length > 0) {
+    const warning = document.createElement('div');
+    warning.className = 'fetch-warning';
+    warning.innerHTML = `
+      ⚠️ Some image pages failed to load: ${failedPages.join(', ')}.<br>
+      Only partial results may be shown.
+    `;
+    document.body.appendChild(warning);
+
+    // Fade-out after a few seconds
+    setTimeout(() => warning.classList.add('fade-out'), 5000);
+    setTimeout(() => warning.remove(), 7000);
+  }
+
+  return allImages;
+};
+
 
 // Updated init function using ${} template literals
 const init = () => {
@@ -72,10 +123,10 @@ const init = () => {
 }
 
 // Don't start the app initially - wait for modal to close
-// init()
 
 // Button to generate a new fortune
 const buttonEl = document.createElement('button')
+buttonEl.className = 'generate-btn'
 buttonEl.innerText = "Generate New Fortune"
 buttonEl.onclick = () => {
   containerEl.innerHTML = ""
