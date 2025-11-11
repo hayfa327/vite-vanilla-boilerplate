@@ -48,16 +48,7 @@
 }
 
 :root {
-  font-family: "Griffy", system-ui;
-  font-weight: 300;
-  font-style: normal;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-  background: 
-    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url('https://cdn.suwalls.com/wallpapers/holidays/halloween-pattern-on-black-49233-3840x2160.jpg') 
-  ;
-  background-size: cover;
+
 }
 
 /* made changes to header and h1 for theme button to align to the right */
@@ -81,15 +72,23 @@ body {
  margin: 0;
  padding: 0;
  min-width: 300px;
+ min-height: 100%;
  text-align: center;
  color: white;
  position: relative;
  z-index: 0;
+   font-family: "Griffy", system-ui;
+  font-weight: 300;
+  font-style: normal;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+  background:
+    linear-gradient(rgba(15, 3, 3, 0.298), rgba(15, 3, 3, 0.298)),
+    url('https://cdn.suwalls.com/wallpapers/holidays/halloween-pattern-on-black-49233-3840x2160.jpg');
 }
 
-
-
-button {
+button,
+.generate-btn{
   margin-bottom: 20px;
   border-radius: 8px;
   border: 1px solid orangered;
@@ -100,16 +99,23 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   color: inherit;
-  transition: border-color 0.25s;
-  height: 40px;
+  transition: 
+    transform 0.2s ease, 
+    box-shadow 0.2s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+  height: 45px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3); /* subtle depth */
 }
 
-img {
- width: 24px;
- height: auto;
-border-radius: 50%;
-padding : 0;
-margin : 0;
+
+/* Hover effects */
+button:hover,
+.generate-btn:hover {
+  transform: scale(1.05); /* slight zoom */
+  box-shadow: 0 8px 15px rgba(255, 69, 0, 0.6); /* glowing shadow */
+  background-color: #2a2a2a; /* slightly lighter */
+  border-color: orangered; 
 }
 
 p {
@@ -132,10 +138,6 @@ p {
  backdrop-filter: blur(10px);            /* blur effect */
  -webkit-backdrop-filter: blur(10px);    /* Safari support */
  border: 1px solid rgba(137, 50, 0, 0.888); /* subtle border */
-}
-
-footer{
-  padding: 2rem 0;
 }
 
 .image-wrapper {
