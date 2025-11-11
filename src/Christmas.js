@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const christmasTheme = () => {
     bodyChristmas.classList.add('christmas-theme');
     mode = 'christmas';
-    emojisAnimation();
+    window.emojisAnimation();
     hideComments(); // Hide comments in Christmas theme
 
     // Change title for Christmas mode
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const removeChristmas = () => {
     bodyChristmas.classList.remove('christmas-theme');
     mode = 'default'; 
-    emojisAnimation();
+    window.emojisAnimation();
     hideComments(); // Hide comments when reverting to default
     //  Revert title to Halloween theme
     switchMusic('halloween');
