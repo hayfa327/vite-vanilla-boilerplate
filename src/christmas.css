@@ -18,7 +18,7 @@ body.christmas-theme .overlay {
 
 
 body.christmas-theme { 
-  background-image: url(papa2.png);
+  background-image: url(backG.png);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -27,10 +27,6 @@ body.christmas-theme {
   color: white;
  
 }
-
-  body.christmas-theme .halloween-container {
-   /* z-index: 10; /* moves in front during Christmas */
-  }
 
 .emoji-icon {
   position: absolute;
@@ -75,3 +71,5 @@ body.christmas-theme {
     opacity: 0; 
   }
 }
+
+

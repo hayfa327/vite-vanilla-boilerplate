@@ -1,4 +1,5 @@
 //----------------------------- light theme button ----------------------------- 
+import { hideComments } from './comment.js'; 
 
 // Creates a slider button
 const themeButtonLabelEl = document.createElement('label')
@@ -18,11 +19,13 @@ let theme = 'default' // sets the current theme to default
 export const lightTheme = () => {
   document.body.classList.add('light-theme')
   theme = 'theme'
+  hideComments() // Hide comments in light theme
 }
 
 export const reverseLightTheme = () => {
   document.body.classList.remove('light-theme')
   theme = 'default'
+  // Don't show comments when switching back - only show after modal completion
 }
 
 export const switchTheme = () => {
