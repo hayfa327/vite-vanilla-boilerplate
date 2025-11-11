@@ -131,7 +131,7 @@ const closeModal = () => {
   // Icon for music
   renderMusicPlayer();
   // Start emojis animation 
-  emojisAnimation();
+  window.emojisAnimation();
   // Hide comments after user logs in
   showCommentsAfterModal();
 };
