@@ -193,7 +193,7 @@ window.emojisAnimation = () => {
 
         likesContainer.appendChild(emoji);
         created++;
-      }, 10);  
+      }, 600);  
     });
  };
 
