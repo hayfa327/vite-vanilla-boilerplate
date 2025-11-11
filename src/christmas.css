@@ -61,7 +61,6 @@ body.christmas-theme .slider:before {
   background-image: url('Snowflake.svg');
 }
 
-
 .emoji-icon {
   position: absolute;
   animation: floatDown linear infinite;

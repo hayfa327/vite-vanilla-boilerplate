@@ -1,3 +1,5 @@
+import "./Christmas"
+import "./main"
 //----------------------------- light theme button ----------------------------- 
 
 // Creates a slider button
@@ -15,17 +17,17 @@ headerEl.appendChild(themeButtonLabelEl)
 
 let theme = 'default' // sets the current theme to default
 
-export const lightTheme = () => {
+const lightTheme = () => {
   document.body.classList.add('light-theme')
   theme = 'theme'
 }
 
-export const reverseLightTheme = () => {
+const reverseLightTheme = () => {
   document.body.classList.remove('light-theme')
   theme = 'default'
 }
 
-export const switchTheme = () => {
+const switchTheme = () => {
   if (theme === 'default') {
     //light theme function that overrides the current css
     //and sets theme to 'theme' so the switchTheme function reacts correctly

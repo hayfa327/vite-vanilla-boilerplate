@@ -132,32 +132,6 @@ const closeModal = () => {
 // Attach listener
 document.getElementById('exitModal').addEventListener('click', closeModal);
 
-/* const commentsContainer = document.getElementById('comments');
- 
- let page = 1; 
-let allComments = [];
-
-// function to create the comment element 
-const createComment  = (comment) => {
-const commentEl = document.createElement('p')
-commentEl.innerHTML = comment 
-commentsContainer.appendChild(commentEl)
-};
-
- // function to fetch the comments from the API and display them
-fetch ('https://image-feed-api.vercel.app/api/images?page=1')
-.then(resp => resp.json())
-.then(json => {
-      json.data.forEach(image => {
-     image.comments.forEach(c => allComments.push(`${c.commenter_name}: ${c.comment}`));
-});
-console.log(allComments);
-const shuffledComments = allComments.sort(() => 0.5 - Math.random());
-const selectedComments = shuffledComments.slice(0, 4);
-selectedComments.forEach(c => createComment(c));
-
-}); */ 
-
 // function to create the likes element
  const likesContainer = document.getElementById('likes');
 
