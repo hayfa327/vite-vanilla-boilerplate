@@ -217,14 +217,14 @@ window.emojisAnimation = () => {
         // Use the number of likes, but limit the number of emojis to 60
         const count = Math.min(image.likes_count || 0, 60); 
 
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < count; i++) {
           const emoji = document.createElement('span');
           emoji.classList.add(isChristmasTheme ? 'emoji-icon' : 'halloween-icon');
           // choose a random emoji from the appropriate array
           emoji.textContent = emojiArray[Math.floor(Math.random() * emojiArray.length)];
 
           emoji.style.left = Math.random() * 100 + '%';
-          emoji.style.animationDuration = (1 + Math.random() * 10) + 's';
+          emoji.style.animationDuration = (0.5 + Math.random() * 10) + 's';
           emoji.style.fontSize = (20 + Math.random() * 25) + 'px';
 
           likesContainer.appendChild(emoji);
