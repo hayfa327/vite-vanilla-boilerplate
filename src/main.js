@@ -224,7 +224,7 @@ window.emojisAnimation = () => {
           emoji.textContent = emojiArray[Math.floor(Math.random() * emojiArray.length)];
 
           emoji.style.left = Math.random() * 100 + '%';
-          emoji.style.animationDuration = (0.5 + Math.random() * 10) + 's';
+          emoji.style.animationDuration = (3 + Math.random() * 10) + 's';
           emoji.style.fontSize = (20 + Math.random() * 25) + 'px';
 
           likesContainer.appendChild(emoji);
