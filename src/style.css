@@ -118,6 +118,10 @@ button:hover,
   border-color: orangered; 
 }
 
+.hidden {
+  display: none !important;
+}
+
 p {
  display:inline-flex;
  margin: 0;
@@ -276,3 +280,67 @@ p {
 }
 
  }
+
+
+ /* LOADING MESSAGE STYLES*/
+
+/* Full-screen semi-transparent overlay */
+#loading-overlay {
+  position: fixed;           /* covers entire screen */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.6);  /* dim background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;             /* on top of everything */
+}
+
+/* Loading message inside overlay */
+#loading-message {
+  color: #fd59ec;            /* Halloween pinkish color */
+  font-size: 2rem;
+  padding: 20px 30px;
+  border-radius: 12px;
+  background: rgba(0,0,0,0.7);
+  text-align: center;
+  animation: pulse 1.5s infinite;
+}
+
+
+#loading-message::before {
+  content: "";
+  position: absolute;
+  top: -50vh;
+  left: -50vw;
+  width: 200vw;
+  height: 200vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+  border-radius: 10px;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+.fetch-warning {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 140, 0, 0.9);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  z-index: 9999;
+  font-size: 0.9rem;
+  transition: opacity 1s ease;
+}
+.fetch-warning.fade-out {
+  opacity: 0;
+}
