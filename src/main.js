@@ -41,7 +41,7 @@ const loadingOverlay = document.createElement('div');
 loadingOverlay.id = 'loading-overlay';
 loadingOverlay.innerHTML = `<div id="loading-message">🔮 Operating magic 🔮</div>`;
 
-// Append overlay to body (or #app if you want it relative to app)
+// Append overlay to body 
 document.body.appendChild(loadingOverlay);
 
 // Optionally hide the app and theme button while loading
